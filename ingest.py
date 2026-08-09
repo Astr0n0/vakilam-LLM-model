@@ -28,7 +28,7 @@ collection = client.get_or_create_collection(
 # Load JSON data
 # =========================
 
-with open("law-rag/data/civil-law.json", "r", encoding="utf-8") as f:
+with open("JSON_FILE", "r", encoding="utf-8") as f:
     data = json.load(f)
 
 print(f"Total JSON records: {len(data)}")
