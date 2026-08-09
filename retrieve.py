@@ -127,6 +127,133 @@ def to_persian_digits(text):
 
     return text
 
+
+def is_deleted_version(version):
+    """
+    Check whether a legal version is marked as deleted.
+    """
+
+    if not version:
+        return False
+
+    return (
+        version.startswith("حذفی")
+        or version.startswith("حذف")
+    )
+
+
+def version_date(version):
+    """
+    Extract the date from a version string.
+
+    Examples:
+        اصلاحی ۱۳۸۱/۴/۱
+        مصوب ۱۳۰۷/۲/۱۸
+
+    Returns:
+        tuple(year, month, day)
+        or None
+    """
+
+    if not version:
+        return None
+
+    normalized = normalize_digits(version)
+
+    match = re.search(
+        r"(\d{3,4})/(\d{1,2})/(\d{1,2})",
+        normalized
+    )
+
+    if not match:
+        return None
+
+    year = int(match.group(1))
+    month = int(match.group(2))
+    day = int(match.group(3))
+
+    return (year, month, day)
+
+
+def select_current_version(results):
+    """
+    Select the legally relevant version of an article.
+
+    Priority:
+    1. current
+    2. latest dated version
+
+    Deleted versions are ignored.
+    """
+
+    if not results:
+        return []
+
+    # ---------------------------------
+    # Remove deleted versions
+    # ---------------------------------
+
+    valid_results = []
+
+    for result in results:
+
+        version = result["metadata"].get(
+            "version", ""
+        )
+
+        if is_deleted_version(version):
+            continue
+
+        valid_results.append(result)
+
+    if not valid_results:
+        return []
+
+    # ---------------------------------
+    # Prefer current version
+    # ---------------------------------
+
+    current_results = [
+        result
+        for result in valid_results
+        if result["metadata"].get("version") == "current"
+    ]
+
+    if current_results:
+        return current_results
+
+    # ---------------------------------
+    # No current version:
+    # select latest dated version
+    # ---------------------------------
+
+    dated_results = []
+
+    for result in valid_results:
+
+        version = result["metadata"].get(
+            "version", ""
+        )
+
+        date = version_date(version)
+
+        if date is not None:
+            dated_results.append(
+                (date, result)
+            )
+
+    if not dated_results:
+        return []
+
+    # Latest date wins
+    dated_results.sort(
+        key=lambda item: item[0],
+        reverse=True
+    )
+
+    return [dated_results[0][1]]
+
+
 exact_results = []
 
 
@@ -139,7 +266,8 @@ if article_number is not None:
 
     print(f"Detected article: {article_number}")
 
-    # Chroma stores article numbers using Persian digits.
+    # Convert English digits to Persian digits
+    # because ChromaDB stores article numbers in Persian digits.
     article_number_persian = to_persian_digits(
         article_number
     )
@@ -174,6 +302,19 @@ if article_number is not None:
             f"Exact matches found: {len(exact_results)}"
         )
 
+        # ---------------------------------
+        # Resolve legal version
+        # ---------------------------------
+
+        exact_results = select_current_version(
+            exact_results
+        )
+
+        print(
+            f"Exact matches after version filtering: "
+            f"{len(exact_results)}"
+        )
+
     else:
 
         print("No exact article match found.")
@@ -183,42 +324,103 @@ if article_number is not None:
 # Semantic Search
 # =========================
 
-print()
-print("=" * 70)
-print("SEMANTIC SEARCH")
-print("=" * 70)
-
-response = ollama.embeddings(
-    model=EMBEDDING_MODEL,
-    prompt=query
-)
-
-query_embedding = response["embedding"]
-
-
-semantic = collection.query(
-    query_embeddings=[query_embedding],
-    n_results=SEMANTIC_TOP_K
-)
-
-
 semantic_results = []
 
 
-for i in range(len(semantic["documents"][0])):
+if article_number is None:
 
-    semantic_results.append({
-        "id": semantic["ids"][0][i],
-        "document": semantic["documents"][0][i],
-        "metadata": semantic["metadatas"][0][i],
-        "distance": semantic["distances"][0][i],
-        "retrieval_type": "semantic"
-    })
+    print()
+    print("=" * 70)
+    print("SEMANTIC SEARCH")
+    print("=" * 70)
+
+    response = ollama.embeddings(
+        model=EMBEDDING_MODEL,
+        prompt=query
+    )
+
+    query_embedding = response["embedding"]
+
+    semantic = collection.query(
+        query_embeddings=[query_embedding],
+        n_results=SEMANTIC_TOP_K
+    )
+
+    # ---------------------------------
+    # Build raw semantic results
+    # ---------------------------------
+
+    raw_semantic_results = []
+
+    for i in range(len(semantic["documents"][0])):
+
+        raw_semantic_results.append({
+            "id": semantic["ids"][0][i],
+            "document": semantic["documents"][0][i],
+            "metadata": semantic["metadatas"][0][i],
+            "distance": semantic["distances"][0][i],
+            "retrieval_type": "semantic"
+        })
+
+    print(
+        f"Semantic matches found: "
+        f"{len(raw_semantic_results)}"
+    )
+
+    # ---------------------------------
+    # Group results by article
+    # ---------------------------------
+
+    results_by_article = {}
+
+    for result in raw_semantic_results:
+
+        article = result["metadata"].get(
+            "article"
+        )
+
+        if article is None:
+            continue
+
+        if article not in results_by_article:
+            results_by_article[article] = []
+
+        results_by_article[article].append(
+            result
+        )
+
+    # ---------------------------------
+    # Resolve legal version
+    # ---------------------------------
+
+    for article, results in results_by_article.items():
+
+        selected = select_current_version(
+            results
+        )
+
+        semantic_results.extend(
+            selected
+        )
+
+    print(
+        f"Semantic results after "
+        f"version filtering: "
+        f"{len(semantic_results)}"
+    )
 
 
-print(
-    f"Semantic matches found: {len(semantic_results)}"
-)
+else:
+
+    print()
+    print("=" * 70)
+    print("SEMANTIC SEARCH SKIPPED")
+    print("=" * 70)
+
+    print(
+        "Exact article query detected. "
+        "Semantic search is not needed."
+    )
 
 
 # =========================
@@ -229,24 +431,19 @@ merged_results = []
 
 seen_ids = set()
 
-
-# Exact results get priority
 for result in exact_results:
 
     if result["id"] not in seen_ids:
 
         merged_results.append(result)
-
         seen_ids.add(result["id"])
 
 
-# Add semantic results
 for result in semantic_results:
 
     if result["id"] not in seen_ids:
 
         merged_results.append(result)
-
         seen_ids.add(result["id"])
 
 
