@@ -1,0 +1,446 @@
+[
+  {
+    "id": "q001",
+    "question": "رضایت زوجین در عقد نکاح چه اهمیتی دارد؟",
+    "primary_article": "1070",
+    "relevant_articles": ["1070"],
+    "hard_negatives": ["1062", "1035", "1102", "1119"]
+  },
+  {
+    "id": "q002",
+    "question": "رضایت زن و مرد در ازدواج چه نقشی دارد؟",
+    "primary_article": "1070",
+    "relevant_articles": ["1070"],
+    "hard_negatives": ["1062", "1035", "1102"]
+  },
+  {
+    "id": "q003",
+    "question": "اگر یکی از طرفین عقد نکاح مجبور شده باشد، عقد چه وضعیتی دارد؟",
+    "primary_article": "1070",
+    "relevant_articles": ["1070"],
+    "hard_negatives": ["1062", "1067", "1102"]
+  },
+  {
+    "id": "q004",
+    "question": "اکراه در عقد نکاح چه اثری دارد؟",
+    "primary_article": "1070",
+    "relevant_articles": ["1070"],
+    "hard_negatives": ["1062", "1069", "1119"]
+  },
+  {
+    "id": "q005",
+    "question": "عقد نکاح چگونه واقع می‌شود؟",
+    "primary_article": "1062",
+    "relevant_articles": ["1062"],
+    "hard_negatives": ["1070", "1067", "1035"]
+  },
+  {
+    "id": "q006",
+    "question": "برای وقوع نکاح چه چیزی باید بین طرفین وجود داشته باشد؟",
+    "primary_article": "1062",
+    "relevant_articles": ["1062"],
+    "hard_negatives": ["1070", "1063", "1102"]
+  },
+  {
+    "id": "q007",
+    "question": "ایجاب و قبول در عقد نکاح چه اهمیتی دارد؟",
+    "primary_article": "1062",
+    "relevant_articles": ["1062"],
+    "hard_negatives": ["1070", "1067", "1102"]
+  },
+  {
+    "id": "q008",
+    "question": "چه الفاظی برای وقوع عقد نکاح لازم است؟",
+    "primary_article": "1062",
+    "relevant_articles": ["1062"],
+    "hard_negatives": ["1067", "1070", "1035"]
+  },
+  {
+    "id": "q009",
+    "question": "شرایط مربوط به قصد ازدواج در عقد نکاح چیست؟",
+    "primary_article": "1062",
+    "relevant_articles": ["1062"],
+    "hard_negatives": ["1070", "1067", "1102"]
+  },
+  {
+    "id": "q010",
+    "question": "وعده ازدواج چه اثری بر ایجاد رابطه زوجیت دارد؟",
+    "primary_article": "1035",
+    "relevant_articles": ["1035"],
+    "hard_negatives": ["1062", "1070", "1102"]
+  },
+
+  {
+    "id": "q011",
+    "question": "آیا کسی را می‌توان مجبور به ازدواج کرد؟",
+    "primary_article": "1035",
+    "relevant_articles": ["1035"],
+    "hard_negatives": ["1070", "1062", "1102"]
+  },
+  {
+    "id": "q012",
+    "question": "آیا صرف وعده ازدواج باعث ایجاد زوجیت می‌شود؟",
+    "primary_article": "1035",
+    "relevant_articles": ["1035"],
+    "hard_negatives": ["1062", "1070", "1102"]
+  },
+  {
+    "id": "q013",
+    "question": "بعد از وقوع صحیح نکاح چه حقوق و تکالیفی میان زوجین ایجاد می‌شود؟",
+    "primary_article": "1102",
+    "relevant_articles": ["1102"],
+    "hard_negatives": ["1062", "1070", "1035"]
+  },
+  {
+    "id": "q014",
+    "question": "اثر نکاح صحیح بر روابط زوجین چیست؟",
+    "primary_article": "1102",
+    "relevant_articles": ["1102"],
+    "hard_negatives": ["1120", "1070", "1062"]
+  },
+  {
+    "id": "q015",
+    "question": "حقوق و تکالیف زوجین از چه زمانی برقرار می‌شود؟",
+    "primary_article": "1102",
+    "relevant_articles": ["1102"],
+    "hard_negatives": ["1062", "1035", "1119"]
+  },
+
+  {
+    "id": "q016",
+    "question": "عده چیست؟",
+    "primary_article": "1150",
+    "relevant_articles": ["1150"],
+    "hard_negatives": ["1151", "1152", "1154", "1155"]
+  },
+  {
+    "id": "q017",
+    "question": "مفهوم قانونی عده چیست؟",
+    "primary_article": "1150",
+    "relevant_articles": ["1150"],
+    "hard_negatives": ["1151", "1152", "1154"]
+  },
+  {
+    "id": "q018",
+    "question": "عده زن پس از انحلال نکاح به چه معناست؟",
+    "primary_article": "1150",
+    "relevant_articles": ["1150"],
+    "hard_negatives": ["1151", "1152", "1154"]
+  },
+  {
+    "id": "q019",
+    "question": "عده طلاق چقدر است؟",
+    "primary_article": "1151",
+    "relevant_articles": ["1151"],
+    "hard_negatives": ["1150", "1152", "1154"]
+  },
+  {
+    "id": "q020",
+    "question": "مدت عده فسخ نکاح چقدر است؟",
+    "primary_article": "1151",
+    "relevant_articles": ["1151"],
+    "hard_negatives": ["1150", "1152", "1154"]
+  },
+
+  {
+    "id": "q021",
+    "question": "عده نکاح منقطع چقدر است؟",
+    "primary_article": "1152",
+    "relevant_articles": ["1152"],
+    "hard_negatives": ["1151", "1153", "1154"]
+  },
+  {
+    "id": "q022",
+    "question": "عده زن در عقد موقت چه مدتی است؟",
+    "primary_article": "1152",
+    "relevant_articles": ["1152"],
+    "hard_negatives": ["1151", "1153", "1154"]
+  },
+  {
+    "id": "q023",
+    "question": "عده زن باردار پس از طلاق چه زمانی تمام می‌شود؟",
+    "primary_article": "1153",
+    "relevant_articles": ["1153"],
+    "hard_negatives": ["1151", "1152", "1154"]
+  },
+  {
+    "id": "q024",
+    "question": "عده زن حامله در صورت طلاق چگونه محاسبه می‌شود؟",
+    "primary_article": "1153",
+    "relevant_articles": ["1153"],
+    "hard_negatives": ["1151", "1152", "1154"]
+  },
+  {
+    "id": "q025",
+    "question": "عده وفات زن چقدر است؟",
+    "primary_article": "1154",
+    "relevant_articles": ["1154"],
+    "hard_negatives": ["1150", "1151", "1155"]
+  },
+
+  {
+    "id": "q026",
+    "question": "عده وفات شوهر برای زن چه مدت است؟",
+    "primary_article": "1154",
+    "relevant_articles": ["1154"],
+    "hard_negatives": ["1151", "1153", "1155"]
+  },
+  {
+    "id": "q027",
+    "question": "اگر زن باردار باشد عده وفات چگونه محاسبه می‌شود؟",
+    "primary_article": "1154",
+    "relevant_articles": ["1154"],
+    "hard_negatives": ["1153", "1155", "1156"]
+  },
+  {
+    "id": "q028",
+    "question": "چه زنانی عده طلاق یا فسخ نکاح ندارند؟",
+    "primary_article": "1155",
+    "relevant_articles": ["1155"],
+    "hard_negatives": ["1150", "1151", "1154"]
+  },
+  {
+    "id": "q029",
+    "question": "آیا زن یائسه باید عده طلاق نگه دارد؟",
+    "primary_article": "1155",
+    "relevant_articles": ["1155"],
+    "hard_negatives": ["1151", "1154", "1156"]
+  },
+  {
+    "id": "q030",
+    "question": "اگر میان زن و شوهر نزدیکی واقع نشده باشد، عده طلاق وجود دارد؟",
+    "primary_article": "1155",
+    "relevant_articles": ["1155"],
+    "hard_negatives": ["1151", "1154", "1156"]
+  },
+
+  {
+    "id": "q031",
+    "question": "عده زن غایب مفقودالاثر پس از طلاق چیست؟",
+    "primary_article": "1156",
+    "relevant_articles": ["1156"],
+    "hard_negatives": ["1154", "1155", "1151"]
+  },
+  {
+    "id": "q032",
+    "question": "اگر شوهر مفقودالاثر باشد و زن طلاق بگیرد، عده چگونه است؟",
+    "primary_article": "1156",
+    "relevant_articles": ["1156"],
+    "hard_negatives": ["1154", "1155", "1151"]
+  },
+
+  {
+    "id": "q033",
+    "question": "عقد نکاح چگونه منحل می‌شود؟",
+    "primary_article": "1120",
+    "relevant_articles": ["1120"],
+    "hard_negatives": ["1102", "1062", "1070"]
+  },
+  {
+    "id": "q034",
+    "question": "راه‌های انحلال عقد نکاح چیست؟",
+    "primary_article": "1120",
+    "relevant_articles": ["1120"],
+    "hard_negatives": ["1150", "1102", "1119"]
+  },
+  {
+    "id": "q035",
+    "question": "آیا عقد نکاح با فسخ منحل می‌شود؟",
+    "primary_article": "1120",
+    "relevant_articles": ["1120"],
+    "hard_negatives": ["1069", "1102", "1151"]
+  },
+
+  {
+    "id": "q036",
+    "question": "آیا می‌توان در عقد ازدواج شرط ضمن عقد قرار داد؟",
+    "primary_article": "1119",
+    "relevant_articles": ["1119"],
+    "hard_negatives": ["1070", "1062", "1069"]
+  },
+  {
+    "id": "q037",
+    "question": "چه شروطی را می‌توان ضمن عقد ازدواج قرار داد؟",
+    "primary_article": "1119",
+    "relevant_articles": ["1119"],
+    "hard_negatives": ["1069", "1070", "1102"]
+  },
+  {
+    "id": "q038",
+    "question": "شرط وکالت زن برای طلاق در عقد ازدواج چگونه است؟",
+    "primary_article": "1119",
+    "relevant_articles": ["1119"],
+    "hard_negatives": ["1120", "1070", "1069"]
+  },
+
+  {
+    "id": "q039",
+    "question": "آیا می‌توان برای عقد نکاح شرط فسخ قرار داد؟",
+    "primary_article": "1069",
+    "relevant_articles": ["1069"],
+    "hard_negatives": ["1119", "1070", "1120"]
+  },
+  {
+    "id": "q040",
+    "question": "شرط خیار فسخ در عقد نکاح چه حکمی دارد؟",
+    "primary_article": "1069",
+    "relevant_articles": ["1069"],
+    "hard_negatives": ["1119", "1120", "1070"]
+  },
+
+  {
+    "id": "q041",
+    "question": "نکاح با چه خویشاوندانی ممنوع است؟",
+    "primary_article": "1045",
+    "relevant_articles": ["1045"],
+    "hard_negatives": ["1041", "1050", "1054"]
+  },
+  {
+    "id": "q042",
+    "question": "چه کسانی از نظر نسبی نمی‌توانند با یکدیگر ازدواج کنند؟",
+    "primary_article": "1045",
+    "relevant_articles": ["1045"],
+    "hard_negatives": ["1050", "1054", "1033"]
+  },
+
+  {
+    "id": "q043",
+    "question": "نکاح زن شوهردار با شخص دیگر چه حکمی دارد؟",
+    "primary_article": "1050",
+    "relevant_articles": ["1050"],
+    "hard_negatives": ["1054", "1045", "1154"]
+  },
+  {
+    "id": "q044",
+    "question": "ازدواج با زنی که در عده است چه حکمی دارد؟",
+    "primary_article": "1050",
+    "relevant_articles": ["1050"],
+    "hard_negatives": ["1054", "1154", "1151"]
+  },
+
+  {
+    "id": "q045",
+    "question": "زنای با زن شوهردار چه اثری بر امکان ازدواج دارد؟",
+    "primary_article": "1054",
+    "relevant_articles": ["1054"],
+    "hard_negatives": ["1050", "1045", "1154"]
+  },
+
+  {
+    "id": "q046",
+    "question": "آیا نکاح قبل از بلوغ مجاز است؟",
+    "primary_article": "1041",
+    "relevant_articles": ["1041"],
+    "hard_negatives": ["1045", "1062", "1070"]
+  },
+  {
+    "id": "q047",
+    "question": "شرایط عقد نکاح قبل از بلوغ چیست؟",
+    "primary_article": "1041",
+    "relevant_articles": ["1041"],
+    "hard_negatives": ["1062", "1070", "1045"]
+  },
+
+  {
+    "id": "q048",
+    "question": "مهر در نکاح دائم چگونه تعیین می‌شود اگر در عقد ذکر نشده باشد؟",
+    "primary_article": "1087",
+    "relevant_articles": ["1087"],
+    "hard_negatives": ["1081", "1097", "1096"]
+  },
+  {
+    "id": "q049",
+    "question": "اگر در عقد دائم مهری تعیین نشده باشد، آیا نکاح صحیح است؟",
+    "primary_article": "1087",
+    "relevant_articles": ["1087"],
+    "hard_negatives": ["1081", "1097", "1096"]
+  },
+
+  {
+    "id": "q050",
+    "question": "اگر نکاح منقطع قبل از نزدیکی پایان یابد، نصف مهر پرداخت می‌شود؟",
+    "primary_article": "1097",
+    "relevant_articles": ["1097"],
+    "hard_negatives": ["1096", "1087", "1081"]
+  },
+
+  {
+    "id": "q051",
+    "question": "در نکاح منقطع، فوت زن چه اثری بر مهر دارد؟",
+    "primary_article": "1096",
+    "relevant_articles": ["1096"],
+    "hard_negatives": ["1097", "1087", "1081"]
+  },
+
+  {
+    "id": "q052",
+    "question": "اگر نکاح صحیح واقع شود چه آثاری میان زن و شوهر ایجاد می‌شود؟",
+    "primary_article": "1102",
+    "relevant_articles": ["1102"],
+    "hard_negatives": ["1062", "1070", "1120"]
+  },
+
+  {
+    "id": "q053",
+    "question": "تفاوت رضایت در عقد نکاح با ایجاب و قبول چیست؟",
+    "primary_article": "1070",
+    "relevant_articles": ["1070", "1062"],
+    "hard_negatives": ["1035", "1102", "1119"]
+  },
+
+  {
+    "id": "q054",
+    "question": "برای صحت و نفوذ عقد نکاح رضایت طرفین چه نقشی دارد؟",
+    "primary_article": "1070",
+    "relevant_articles": ["1070"],
+    "hard_negatives": ["1062", "1102", "1035"]
+  },
+
+  {
+    "id": "q055",
+    "question": "تفاوت عقد نکاح و وعده ازدواج چیست؟",
+    "primary_article": "1035",
+    "relevant_articles": ["1035", "1062"],
+    "hard_negatives": ["1070", "1102", "1120"]
+  },
+
+  {
+    "id": "q056",
+    "question": "برای وقوع عقد نکاح چه شرایط و ارکانی اهمیت دارند؟",
+    "primary_article": "1062",
+    "relevant_articles": ["1062", "1067", "1070"],
+    "hard_negatives": ["1035", "1102", "1119"]
+  },
+
+  {
+    "id": "q057",
+    "question": "رضایت زوجین و قصد ازدواج در عقد نکاح چه ارتباطی دارند؟",
+    "primary_article": "1070",
+    "relevant_articles": ["1062", "1070"],
+    "hard_negatives": ["1035", "1102", "1119"]
+  },
+
+  {
+    "id": "q058",
+    "question": "عده طلاق و عده وفات چه تفاوتی با یکدیگر دارند؟",
+    "primary_article": "1151",
+    "relevant_articles": ["1150", "1151", "1154"],
+    "hard_negatives": ["1152", "1155", "1120"]
+  },
+
+  {
+    "id": "q059",
+    "question": "مدت عده در انواع مختلف انحلال نکاح چگونه تعیین می‌شود؟",
+    "primary_article": "1150",
+    "relevant_articles": ["1150", "1151", "1152", "1153", "1154"],
+    "hard_negatives": ["1120", "1102", "1119"]
+  },
+
+  {
+    "id": "q060",
+    "question": "مهم‌ترین مقررات قانونی مربوط به رضایت، وقوع و انحلال نکاح کدام‌اند؟",
+    "primary_article": "1070",
+    "relevant_articles": ["1062", "1070", "1102", "1120"],
+    "hard_negatives": ["1035", "1119", "1150"]
+  }
+]
