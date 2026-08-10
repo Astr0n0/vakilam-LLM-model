@@ -1,0 +1,2270 @@
+{
+  "collection": "civil_law_v2",
+  "embedding_model": "qwen3-embedding:0.6b",
+  "semantic_top_k": 20,
+  "final_top_k": 10,
+  "total_questions": 30,
+  "metrics": {
+    "hit_at_1": 0.6666666666666666,
+    "hit_at_3": 0.8,
+    "hit_at_5": 0.8666666666666667,
+    "hit_at_10": 0.9,
+    "mrr": 0.7547619047619047
+  },
+  "questions": [
+    {
+      "question": "شرایط صحت نکاح چیست؟",
+      "expected_articles": [
+        "۱۰۶۷",
+        "۱۰۷۰"
+      ],
+      "retrieved_articles": [
+        "۱۰۶۷",
+        "۱۱۰۲",
+        "۱۰۴۷",
+        "۱۱۳۲",
+        "۱۰۶۹",
+        "۱۱۱۹",
+        "۱۰۸۱",
+        "۱۰۴۱",
+        "۱۰۴۱",
+        "۱۰۴۱"
+      ],
+      "first_relevant_rank": 1,
+      "hit_at_1": true,
+      "hit_at_3": true,
+      "hit_at_5": true,
+      "hit_at_10": true,
+      "retrieval_results": [
+        {
+          "article": "۱۰۶۷",
+          "retrieval_type": "semantic",
+          "distance": 0.7540501952171326
+        },
+        {
+          "article": "۱۱۰۲",
+          "retrieval_type": "semantic",
+          "distance": 0.7832363843917847
+        },
+        {
+          "article": "۱۰۴۷",
+          "retrieval_type": "semantic",
+          "distance": 0.8909292221069336
+        },
+        {
+          "article": "۱۱۳۲",
+          "retrieval_type": "semantic",
+          "distance": 0.8953214287757874
+        },
+        {
+          "article": "۱۰۶۹",
+          "retrieval_type": "semantic",
+          "distance": 0.9164829850196838
+        },
+        {
+          "article": "۱۱۱۹",
+          "retrieval_type": "semantic",
+          "distance": 0.9206889867782593
+        },
+        {
+          "article": "۱۰۸۱",
+          "retrieval_type": "semantic",
+          "distance": 0.9235394597053528
+        },
+        {
+          "article": "۱۰۴۱",
+          "retrieval_type": "semantic",
+          "distance": 0.9249523878097534
+        },
+        {
+          "article": "۱۰۴۱",
+          "retrieval_type": "semantic",
+          "distance": 0.9518074989318848
+        },
+        {
+          "article": "۱۰۴۱",
+          "retrieval_type": "semantic",
+          "distance": 0.9565305113792419
+        }
+      ]
+    },
+    {
+      "question": "برای صحت عقد نکاح چه شرایطی لازم است؟",
+      "expected_articles": [
+        "۱۰۶۷",
+        "۱۰۷۰"
+      ],
+      "retrieved_articles": [
+        "۱۰۶۷",
+        "۱۱۱۹",
+        "۱۰۸۷",
+        "۱۰۶۹",
+        "۱۱۰۲",
+        "۱۰۸۱",
+        "۱۰۷۰",
+        "۱۰۴۷",
+        "۱۱۳۲",
+        "۱۰۴۱"
+      ],
+      "first_relevant_rank": 1,
+      "hit_at_1": true,
+      "hit_at_3": true,
+      "hit_at_5": true,
+      "hit_at_10": true,
+      "retrieval_results": [
+        {
+          "article": "۱۰۶۷",
+          "retrieval_type": "semantic",
+          "distance": 0.7432448267936707
+        },
+        {
+          "article": "۱۱۱۹",
+          "retrieval_type": "semantic",
+          "distance": 0.7660596370697021
+        },
+        {
+          "article": "۱۰۸۷",
+          "retrieval_type": "semantic",
+          "distance": 0.8301684260368347
+        },
+        {
+          "article": "۱۰۶۹",
+          "retrieval_type": "semantic",
+          "distance": 0.8469253182411194
+        },
+        {
+          "article": "۱۱۰۲",
+          "retrieval_type": "semantic",
+          "distance": 0.847253143787384
+        },
+        {
+          "article": "۱۰۸۱",
+          "retrieval_type": "semantic",
+          "distance": 0.8523303270339966
+        },
+        {
+          "article": "۱۰۷۰",
+          "retrieval_type": "semantic",
+          "distance": 0.8747957348823547
+        },
+        {
+          "article": "۱۰۴۷",
+          "retrieval_type": "semantic",
+          "distance": 0.8804846405982971
+        },
+        {
+          "article": "۱۱۳۲",
+          "retrieval_type": "semantic",
+          "distance": 0.8895689845085144
+        },
+        {
+          "article": "۱۰۴۱",
+          "retrieval_type": "semantic",
+          "distance": 0.9017680883407593
+        }
+      ]
+    },
+    {
+      "question": "رضایت زوجین در عقد نکاح چه اهمیتی دارد؟",
+      "expected_articles": [
+        "۱۰۷۰"
+      ],
+      "retrieved_articles": [
+        "۱۱۰۲",
+        "۱۱۰۱",
+        "۱۰۹۶",
+        "۱۰۶۲",
+        "۱۰۳۵",
+        "۱۰۸۷",
+        "۱۰۶۷",
+        "۱۱۲۰",
+        "۱۰۴۷",
+        "۱۰۵۰"
+      ],
+      "first_relevant_rank": null,
+      "hit_at_1": false,
+      "hit_at_3": false,
+      "hit_at_5": false,
+      "hit_at_10": false,
+      "retrieval_results": [
+        {
+          "article": "۱۱۰۲",
+          "retrieval_type": "semantic",
+          "distance": 0.7138541340827942
+        },
+        {
+          "article": "۱۱۰۱",
+          "retrieval_type": "semantic",
+          "distance": 0.8201342821121216
+        },
+        {
+          "article": "۱۰۹۶",
+          "retrieval_type": "semantic",
+          "distance": 0.8935716152191162
+        },
+        {
+          "article": "۱۰۶۲",
+          "retrieval_type": "semantic",
+          "distance": 0.8937735557556152
+        },
+        {
+          "article": "۱۰۳۵",
+          "retrieval_type": "semantic",
+          "distance": 0.8969329595565796
+        },
+        {
+          "article": "۱۰۸۷",
+          "retrieval_type": "semantic",
+          "distance": 0.8995867371559143
+        },
+        {
+          "article": "۱۰۶۷",
+          "retrieval_type": "semantic",
+          "distance": 0.9098674654960632
+        },
+        {
+          "article": "۱۱۲۰",
+          "retrieval_type": "semantic",
+          "distance": 0.923788845539093
+        },
+        {
+          "article": "۱۰۴۷",
+          "retrieval_type": "semantic",
+          "distance": 0.9281107783317566
+        },
+        {
+          "article": "۱۰۵۰",
+          "retrieval_type": "semantic",
+          "distance": 0.9369878768920898
+        }
+      ]
+    },
+    {
+      "question": "اگر یکی از طرفین تحت اکراه عقد نکاح را قبول کند، وضعیت عقد چیست؟",
+      "expected_articles": [
+        "۱۰۷۰"
+      ],
+      "retrieved_articles": [
+        "۱۰۷۰",
+        "۱۱۲۰",
+        "۱۱۱۹",
+        "۱۱۰۲",
+        "۱۰۳۵",
+        "۱۰۶۹",
+        "۱۱۰۱",
+        "۱۰۸۷",
+        "۱۱۵۰",
+        "۱۰۶۲"
+      ],
+      "first_relevant_rank": 1,
+      "hit_at_1": true,
+      "hit_at_3": true,
+      "hit_at_5": true,
+      "hit_at_10": true,
+      "retrieval_results": [
+        {
+          "article": "۱۰۷۰",
+          "retrieval_type": "semantic",
+          "distance": 0.7822646498680115
+        },
+        {
+          "article": "۱۱۲۰",
+          "retrieval_type": "semantic",
+          "distance": 0.8111269474029541
+        },
+        {
+          "article": "۱۱۱۹",
+          "retrieval_type": "semantic",
+          "distance": 0.8710422515869141
+        },
+        {
+          "article": "۱۱۰۲",
+          "retrieval_type": "semantic",
+          "distance": 0.8906910419464111
+        },
+        {
+          "article": "۱۰۳۵",
+          "retrieval_type": "semantic",
+          "distance": 0.9117653369903564
+        },
+        {
+          "article": "۱۰۶۹",
+          "retrieval_type": "semantic",
+          "distance": 0.9142028093338013
+        },
+        {
+          "article": "۱۱۰۱",
+          "retrieval_type": "semantic",
+          "distance": 0.9208688735961914
+        },
+        {
+          "article": "۱۰۸۷",
+          "retrieval_type": "semantic",
+          "distance": 0.9323804378509521
+        },
+        {
+          "article": "۱۱۵۰",
+          "retrieval_type": "semantic",
+          "distance": 0.9398229122161865
+        },
+        {
+          "article": "۱۰۶۲",
+          "retrieval_type": "semantic",
+          "distance": 0.9401109218597412
+        }
+      ]
+    },
+    {
+      "question": "آیا مشخص بودن زن و شوهر برای صحت نکاح ضروری است؟",
+      "expected_articles": [
+        "۱۰۶۷"
+      ],
+      "retrieved_articles": [
+        "۱۰۶۷",
+        "۱۱۰۲",
+        "۱۰۴۷",
+        "۱۱۵۵",
+        "۱۰۹۶",
+        "۱۰۴۳",
+        "۱۰۵۰",
+        "۱۱۰۱",
+        "۱۰۸۷",
+        "۱۰۴۳"
+      ],
+      "first_relevant_rank": 1,
+      "hit_at_1": true,
+      "hit_at_3": true,
+      "hit_at_5": true,
+      "hit_at_10": true,
+      "retrieval_results": [
+        {
+          "article": "۱۰۶۷",
+          "retrieval_type": "semantic",
+          "distance": 0.4449579119682312
+        },
+        {
+          "article": "۱۱۰۲",
+          "retrieval_type": "semantic",
+          "distance": 0.7753514051437378
+        },
+        {
+          "article": "۱۰۴۷",
+          "retrieval_type": "semantic",
+          "distance": 0.7775161266326904
+        },
+        {
+          "article": "۱۱۵۵",
+          "retrieval_type": "semantic",
+          "distance": 0.7820808291435242
+        },
+        {
+          "article": "۱۰۹۶",
+          "retrieval_type": "semantic",
+          "distance": 0.8025168776512146
+        },
+        {
+          "article": "۱۰۴۳",
+          "retrieval_type": "semantic",
+          "distance": 0.8080373406410217
+        },
+        {
+          "article": "۱۰۵۰",
+          "retrieval_type": "semantic",
+          "distance": 0.8154212832450867
+        },
+        {
+          "article": "۱۱۰۱",
+          "retrieval_type": "semantic",
+          "distance": 0.8174167275428772
+        },
+        {
+          "article": "۱۰۸۷",
+          "retrieval_type": "semantic",
+          "distance": 0.8283251523971558
+        },
+        {
+          "article": "۱۰۴۳",
+          "retrieval_type": "semantic",
+          "distance": 0.8515915870666504
+        }
+      ]
+    },
+    {
+      "question": "اگر در عقد دائم مهر تعیین نشده باشد، آیا عقد باطل است؟",
+      "expected_articles": [
+        "۱۰۸۷"
+      ],
+      "retrieved_articles": [
+        "۱۰۸۱",
+        "۱۰۹۵",
+        "۱۰۹۸",
+        "۱۰۸۷",
+        "۴۹۷",
+        "۵۳۲",
+        "۳۴۴",
+        "۲۳۳",
+        "۳۴۶",
+        "۷۷۸"
+      ],
+      "first_relevant_rank": 4,
+      "hit_at_1": false,
+      "hit_at_3": false,
+      "hit_at_5": true,
+      "hit_at_10": true,
+      "retrieval_results": [
+        {
+          "article": "۱۰۸۱",
+          "retrieval_type": "semantic",
+          "distance": 0.7701032161712646
+        },
+        {
+          "article": "۱۰۹۵",
+          "retrieval_type": "semantic",
+          "distance": 0.8179863691329956
+        },
+        {
+          "article": "۱۰۹۸",
+          "retrieval_type": "semantic",
+          "distance": 0.8686349391937256
+        },
+        {
+          "article": "۱۰۸۷",
+          "retrieval_type": "semantic",
+          "distance": 0.8804814219474792
+        },
+        {
+          "article": "۴۹۷",
+          "retrieval_type": "semantic",
+          "distance": 0.8920257687568665
+        },
+        {
+          "article": "۵۳۲",
+          "retrieval_type": "semantic",
+          "distance": 0.8972569108009338
+        },
+        {
+          "article": "۳۴۴",
+          "retrieval_type": "semantic",
+          "distance": 0.9201335906982422
+        },
+        {
+          "article": "۲۳۳",
+          "retrieval_type": "semantic",
+          "distance": 0.9337490797042847
+        },
+        {
+          "article": "۳۴۶",
+          "retrieval_type": "semantic",
+          "distance": 0.9447790384292603
+        },
+        {
+          "article": "۷۷۸",
+          "retrieval_type": "semantic",
+          "distance": 0.9506932497024536
+        }
+      ]
+    },
+    {
+      "question": "آیا عدم تعیین مهریه باعث بطلان نکاح دائم می‌شود؟",
+      "expected_articles": [
+        "۱۰۸۷"
+      ],
+      "retrieved_articles": [
+        "۱۰۹۵",
+        "۱۰۹۸",
+        "۱۰۸۱",
+        "۱۰۸۷",
+        "۱۰۹۶",
+        "۱۱۰۱",
+        "۱۰۳۵",
+        "۱۰۶۹",
+        "۱۰۹۰",
+        "۱۰۸۹"
+      ],
+      "first_relevant_rank": 4,
+      "hit_at_1": false,
+      "hit_at_3": false,
+      "hit_at_5": true,
+      "hit_at_10": true,
+      "retrieval_results": [
+        {
+          "article": "۱۰۹۵",
+          "retrieval_type": "semantic",
+          "distance": 0.5489131808280945
+        },
+        {
+          "article": "۱۰۹۸",
+          "retrieval_type": "semantic",
+          "distance": 0.6947497129440308
+        },
+        {
+          "article": "۱۰۸۱",
+          "retrieval_type": "semantic",
+          "distance": 0.7692825794219971
+        },
+        {
+          "article": "۱۰۸۷",
+          "retrieval_type": "semantic",
+          "distance": 0.7777692079544067
+        },
+        {
+          "article": "۱۰۹۶",
+          "retrieval_type": "semantic",
+          "distance": 0.7832050323486328
+        },
+        {
+          "article": "۱۱۰۱",
+          "retrieval_type": "semantic",
+          "distance": 0.9057226181030273
+        },
+        {
+          "article": "۱۰۳۵",
+          "retrieval_type": "semantic",
+          "distance": 0.9191261529922485
+        },
+        {
+          "article": "۱۰۶۹",
+          "retrieval_type": "semantic",
+          "distance": 0.9233500361442566
+        },
+        {
+          "article": "۱۰۹۰",
+          "retrieval_type": "semantic",
+          "distance": 0.9513891935348511
+        },
+        {
+          "article": "۱۰۸۹",
+          "retrieval_type": "semantic",
+          "distance": 0.9544751048088074
+        }
+      ]
+    },
+    {
+      "question": "در نکاح منقطع مدت عقد باید مشخص باشد؟",
+      "expected_articles": [
+        "۱۰۷۵",
+        "۱۰۷۶"
+      ],
+      "retrieved_articles": [
+        "۱۰۷۶",
+        "۱۰۷۵",
+        "۱۱۵۰",
+        "۱۱۲۰",
+        "۱۰۹۶",
+        "۱۱۵۲",
+        "۱۰۸۷",
+        "۱۰۹۵",
+        "۵۸۶",
+        "۱۰۹۷"
+      ],
+      "first_relevant_rank": 1,
+      "hit_at_1": true,
+      "hit_at_3": true,
+      "hit_at_5": true,
+      "hit_at_10": true,
+      "retrieval_results": [
+        {
+          "article": "۱۰۷۶",
+          "retrieval_type": "semantic",
+          "distance": 0.536334753036499
+        },
+        {
+          "article": "۱۰۷۵",
+          "retrieval_type": "semantic",
+          "distance": 0.6379768252372742
+        },
+        {
+          "article": "۱۱۵۰",
+          "retrieval_type": "semantic",
+          "distance": 0.7126500010490417
+        },
+        {
+          "article": "۱۱۲۰",
+          "retrieval_type": "semantic",
+          "distance": 0.7509840130805969
+        },
+        {
+          "article": "۱۰۹۶",
+          "retrieval_type": "semantic",
+          "distance": 0.841259241104126
+        },
+        {
+          "article": "۱۱۵۲",
+          "retrieval_type": "semantic",
+          "distance": 0.8519248962402344
+        },
+        {
+          "article": "۱۰۸۷",
+          "retrieval_type": "semantic",
+          "distance": 0.8525810837745667
+        },
+        {
+          "article": "۱۰۹۵",
+          "retrieval_type": "semantic",
+          "distance": 0.8542495965957642
+        },
+        {
+          "article": "۵۸۶",
+          "retrieval_type": "semantic",
+          "distance": 0.8575085401535034
+        },
+        {
+          "article": "۱۰۹۷",
+          "retrieval_type": "semantic",
+          "distance": 0.8860641717910767
+        }
+      ]
+    },
+    {
+      "question": "مدت نکاح موقت باید چگونه تعیین شود؟",
+      "expected_articles": [
+        "۱۰۷۶"
+      ],
+      "retrieved_articles": [
+        "۱۰۷۵",
+        "۱۰۷۶",
+        "۱۱۵۰",
+        "۱۱۵۲",
+        "۱۰۴۳",
+        "۱۰۸۷",
+        "۱۱۲۰",
+        "۱۰۴۱",
+        "۱۲۵۱",
+        "۱۱۵۹"
+      ],
+      "first_relevant_rank": 2,
+      "hit_at_1": false,
+      "hit_at_3": true,
+      "hit_at_5": true,
+      "hit_at_10": true,
+      "retrieval_results": [
+        {
+          "article": "۱۰۷۵",
+          "retrieval_type": "semantic",
+          "distance": 0.7961874008178711
+        },
+        {
+          "article": "۱۰۷۶",
+          "retrieval_type": "semantic",
+          "distance": 0.8196913599967957
+        },
+        {
+          "article": "۱۱۵۰",
+          "retrieval_type": "semantic",
+          "distance": 0.9311197996139526
+        },
+        {
+          "article": "۱۱۵۲",
+          "retrieval_type": "semantic",
+          "distance": 0.9617255926132202
+        },
+        {
+          "article": "۱۰۴۳",
+          "retrieval_type": "semantic",
+          "distance": 0.967456579208374
+        },
+        {
+          "article": "۱۰۸۷",
+          "retrieval_type": "semantic",
+          "distance": 0.9775623083114624
+        },
+        {
+          "article": "۱۱۲۰",
+          "retrieval_type": "semantic",
+          "distance": 1.0198036432266235
+        },
+        {
+          "article": "۱۰۴۱",
+          "retrieval_type": "semantic",
+          "distance": 1.0230638980865479
+        },
+        {
+          "article": "۱۲۵۱",
+          "retrieval_type": "semantic",
+          "distance": 1.0291965007781982
+        },
+        {
+          "article": "۱۱۵۹",
+          "retrieval_type": "semantic",
+          "distance": 1.042219638824463
+        }
+      ]
+    },
+    {
+      "question": "نکاح منقطع چیست؟",
+      "expected_articles": [
+        "۱۰۷۵"
+      ],
+      "retrieved_articles": [
+        "۱۰۷۵",
+        "۱۱۲۰",
+        "۱۰۷۶",
+        "۱۱۵۰",
+        "۱۰۹۵",
+        "۱۰۹۶",
+        "۱۱۳۹",
+        "۱۱۰۲",
+        "۲۸۷",
+        "۱۰۶۹"
+      ],
+      "first_relevant_rank": 1,
+      "hit_at_1": true,
+      "hit_at_3": true,
+      "hit_at_5": true,
+      "hit_at_10": true,
+      "retrieval_results": [
+        {
+          "article": "۱۰۷۵",
+          "retrieval_type": "semantic",
+          "distance": 0.6651588678359985
+        },
+        {
+          "article": "۱۱۲۰",
+          "retrieval_type": "semantic",
+          "distance": 0.8069330453872681
+        },
+        {
+          "article": "۱۰۷۶",
+          "retrieval_type": "semantic",
+          "distance": 0.8659589886665344
+        },
+        {
+          "article": "۱۱۵۰",
+          "retrieval_type": "semantic",
+          "distance": 0.9076898097991943
+        },
+        {
+          "article": "۱۰۹۵",
+          "retrieval_type": "semantic",
+          "distance": 0.9508209228515625
+        },
+        {
+          "article": "۱۰۹۶",
+          "retrieval_type": "semantic",
+          "distance": 0.9692560434341431
+        },
+        {
+          "article": "۱۱۳۹",
+          "retrieval_type": "semantic",
+          "distance": 1.0489678382873535
+        },
+        {
+          "article": "۱۱۰۲",
+          "retrieval_type": "semantic",
+          "distance": 1.0541167259216309
+        },
+        {
+          "article": "۲۸۷",
+          "retrieval_type": "semantic",
+          "distance": 1.065582513809204
+        },
+        {
+          "article": "۱۰۶۹",
+          "retrieval_type": "semantic",
+          "distance": 1.0692248344421387
+        }
+      ]
+    },
+    {
+      "question": "چه کسانی به دلیل قرابت نمی‌توانند با یکدیگر ازدواج کنند؟",
+      "expected_articles": [
+        "۱۰۴۵"
+      ],
+      "retrieved_articles": [
+        "۱۰۴۷",
+        "۱۰۴۴",
+        "۱۰۶۰",
+        "۱۳۴",
+        "۱۰۶۱",
+        "۹۴۰",
+        "۱۰۳۵",
+        "۱۰۴۴",
+        "۱۰۴۱",
+        "۱۱۲۲"
+      ],
+      "first_relevant_rank": null,
+      "hit_at_1": false,
+      "hit_at_3": false,
+      "hit_at_5": false,
+      "hit_at_10": false,
+      "retrieval_results": [
+        {
+          "article": "۱۰۴۷",
+          "retrieval_type": "semantic",
+          "distance": 1.0179085731506348
+        },
+        {
+          "article": "۱۰۴۴",
+          "retrieval_type": "semantic",
+          "distance": 1.056648850440979
+        },
+        {
+          "article": "۱۰۶۰",
+          "retrieval_type": "semantic",
+          "distance": 1.06184983253479
+        },
+        {
+          "article": "۱۳۴",
+          "retrieval_type": "semantic",
+          "distance": 1.06645929813385
+        },
+        {
+          "article": "۱۰۶۱",
+          "retrieval_type": "semantic",
+          "distance": 1.0679739713668823
+        },
+        {
+          "article": "۹۴۰",
+          "retrieval_type": "semantic",
+          "distance": 1.0721659660339355
+        },
+        {
+          "article": "۱۰۳۵",
+          "retrieval_type": "semantic",
+          "distance": 1.0745933055877686
+        },
+        {
+          "article": "۱۰۴۴",
+          "retrieval_type": "semantic",
+          "distance": 1.1086623668670654
+        },
+        {
+          "article": "۱۰۴۱",
+          "retrieval_type": "semantic",
+          "distance": 1.112268090248108
+        },
+        {
+          "article": "۱۱۲۲",
+          "retrieval_type": "semantic",
+          "distance": 1.1193386316299438
+        }
+      ]
+    },
+    {
+      "question": "چه ازدواج‌هایی به دلیل مصاهره ممنوع هستند؟",
+      "expected_articles": [
+        "۱۰۴۷"
+      ],
+      "retrieved_articles": [
+        "۱۰۴۷",
+        "۱۰۶۰",
+        "۱۰۴۸",
+        "۱۰۳۵",
+        "۱۰۴۴",
+        "۱۰۴۱",
+        "۱۰۶۱",
+        "۱۳۴",
+        "۱۰۴۴",
+        "۱۰۳۶"
+      ],
+      "first_relevant_rank": 1,
+      "hit_at_1": true,
+      "hit_at_3": true,
+      "hit_at_5": true,
+      "hit_at_10": true,
+      "retrieval_results": [
+        {
+          "article": "۱۰۴۷",
+          "retrieval_type": "semantic",
+          "distance": 0.8902578353881836
+        },
+        {
+          "article": "۱۰۶۰",
+          "retrieval_type": "semantic",
+          "distance": 0.997656524181366
+        },
+        {
+          "article": "۱۰۴۸",
+          "retrieval_type": "semantic",
+          "distance": 1.0085698366165161
+        },
+        {
+          "article": "۱۰۳۵",
+          "retrieval_type": "semantic",
+          "distance": 1.050235629081726
+        },
+        {
+          "article": "۱۰۴۴",
+          "retrieval_type": "semantic",
+          "distance": 1.0598499774932861
+        },
+        {
+          "article": "۱۰۴۱",
+          "retrieval_type": "semantic",
+          "distance": 1.0625100135803223
+        },
+        {
+          "article": "۱۰۶۱",
+          "retrieval_type": "semantic",
+          "distance": 1.0872691869735718
+        },
+        {
+          "article": "۱۳۴",
+          "retrieval_type": "semantic",
+          "distance": 1.0989933013916016
+        },
+        {
+          "article": "۱۰۴۴",
+          "retrieval_type": "semantic",
+          "distance": 1.1014012098312378
+        },
+        {
+          "article": "۱۰۳۶",
+          "retrieval_type": "semantic",
+          "distance": 1.1045033931732178
+        }
+      ]
+    },
+    {
+      "question": "ازدواج مرد با مادر زن چه حکمی دارد؟",
+      "expected_articles": [
+        "۱۰۴۷"
+      ],
+      "retrieved_articles": [
+        "۱۰۵۶",
+        "۹۴۵",
+        "۱۰۴۹",
+        "۱۰۶۷",
+        "۱۰۴۴",
+        "۱۱۶۰",
+        "۱۰۴۷",
+        "۱۱۷۰",
+        "۱۰۹۲",
+        "۱۰۴۴"
+      ],
+      "first_relevant_rank": 7,
+      "hit_at_1": false,
+      "hit_at_3": false,
+      "hit_at_5": false,
+      "hit_at_10": true,
+      "retrieval_results": [
+        {
+          "article": "۱۰۵۶",
+          "retrieval_type": "semantic",
+          "distance": 0.8247575759887695
+        },
+        {
+          "article": "۹۴۵",
+          "retrieval_type": "semantic",
+          "distance": 0.8360439538955688
+        },
+        {
+          "article": "۱۰۴۹",
+          "retrieval_type": "semantic",
+          "distance": 0.8586834669113159
+        },
+        {
+          "article": "۱۰۶۷",
+          "retrieval_type": "semantic",
+          "distance": 0.8884925842285156
+        },
+        {
+          "article": "۱۰۴۴",
+          "retrieval_type": "semantic",
+          "distance": 0.9042152762413025
+        },
+        {
+          "article": "۱۱۶۰",
+          "retrieval_type": "semantic",
+          "distance": 0.9076980352401733
+        },
+        {
+          "article": "۱۰۴۷",
+          "retrieval_type": "semantic",
+          "distance": 0.9094828963279724
+        },
+        {
+          "article": "۱۱۷۰",
+          "retrieval_type": "semantic",
+          "distance": 0.9269857406616211
+        },
+        {
+          "article": "۱۰۹۲",
+          "retrieval_type": "semantic",
+          "distance": 0.931547224521637
+        },
+        {
+          "article": "۱۰۴۴",
+          "retrieval_type": "semantic",
+          "distance": 0.9370156526565552
+        }
+      ]
+    },
+    {
+      "question": "آیا ازدواج با دختر همسر پس از برقراری رابطه زناشویی با مادر او ممنوع است؟",
+      "expected_articles": [
+        "۱۰۴۷"
+      ],
+      "retrieved_articles": [
+        "۱۰۵۶",
+        "۱۰۴۷",
+        "۱۰۴۸",
+        "۱۰۴۴",
+        "۱۰۴۹",
+        "۱۰۴۴",
+        "۸۸۴",
+        "۱۰۵۷",
+        "۱۰۴۳",
+        "۱۰۶۰"
+      ],
+      "first_relevant_rank": 2,
+      "hit_at_1": false,
+      "hit_at_3": true,
+      "hit_at_5": true,
+      "hit_at_10": true,
+      "retrieval_results": [
+        {
+          "article": "۱۰۵۶",
+          "retrieval_type": "semantic",
+          "distance": 0.8064868450164795
+        },
+        {
+          "article": "۱۰۴۷",
+          "retrieval_type": "semantic",
+          "distance": 0.8346939086914062
+        },
+        {
+          "article": "۱۰۴۸",
+          "retrieval_type": "semantic",
+          "distance": 0.8661744594573975
+        },
+        {
+          "article": "۱۰۴۴",
+          "retrieval_type": "semantic",
+          "distance": 0.8732616901397705
+        },
+        {
+          "article": "۱۰۴۹",
+          "retrieval_type": "semantic",
+          "distance": 0.8833205103874207
+        },
+        {
+          "article": "۱۰۴۴",
+          "retrieval_type": "semantic",
+          "distance": 0.8927498459815979
+        },
+        {
+          "article": "۸۸۴",
+          "retrieval_type": "semantic",
+          "distance": 0.907617449760437
+        },
+        {
+          "article": "۱۰۵۷",
+          "retrieval_type": "semantic",
+          "distance": 0.9489084482192993
+        },
+        {
+          "article": "۱۰۴۳",
+          "retrieval_type": "semantic",
+          "distance": 0.9539171457290649
+        },
+        {
+          "article": "۱۰۶۰",
+          "retrieval_type": "semantic",
+          "distance": 0.9586253762245178
+        }
+      ]
+    },
+    {
+      "question": "سن قانونی ازدواج دختر و پسر در قانون مدنی چقدر است؟",
+      "expected_articles": [
+        "۱۰۴۱"
+      ],
+      "retrieved_articles": [
+        "۱۰۴۴",
+        "۱۰۴۱",
+        "۱۰۴۱",
+        "۱۰۴۳",
+        "۱۰۶۰",
+        "۱۰۴۴",
+        "۱۰۴۳",
+        "۱۱۰۲",
+        "۱۰۴۳",
+        "۱۱۳۳"
+      ],
+      "first_relevant_rank": 2,
+      "hit_at_1": false,
+      "hit_at_3": true,
+      "hit_at_5": true,
+      "hit_at_10": true,
+      "retrieval_results": [
+        {
+          "article": "۱۰۴۴",
+          "retrieval_type": "semantic",
+          "distance": 0.9153731465339661
+        },
+        {
+          "article": "۱۰۴۱",
+          "retrieval_type": "semantic",
+          "distance": 0.9332091808319092
+        },
+        {
+          "article": "۱۰۴۱",
+          "retrieval_type": "semantic",
+          "distance": 0.9338378310203552
+        },
+        {
+          "article": "۱۰۴۳",
+          "retrieval_type": "semantic",
+          "distance": 0.9438010454177856
+        },
+        {
+          "article": "۱۰۶۰",
+          "retrieval_type": "semantic",
+          "distance": 0.9475411772727966
+        },
+        {
+          "article": "۱۰۴۴",
+          "retrieval_type": "semantic",
+          "distance": 0.9526728391647339
+        },
+        {
+          "article": "۱۰۴۳",
+          "retrieval_type": "semantic",
+          "distance": 0.9790266752243042
+        },
+        {
+          "article": "۱۱۰۲",
+          "retrieval_type": "semantic",
+          "distance": 0.990472674369812
+        },
+        {
+          "article": "۱۰۴۳",
+          "retrieval_type": "semantic",
+          "distance": 1.0122939348220825
+        },
+        {
+          "article": "۱۱۳۳",
+          "retrieval_type": "semantic",
+          "distance": 1.0132708549499512
+        }
+      ]
+    },
+    {
+      "question": "ازدواج دختر زیر ۱۳ سال چه شرایطی دارد؟",
+      "expected_articles": [
+        "۱۰۴۱"
+      ],
+      "retrieved_articles": [
+        "۱۰۴۱",
+        "۱۰۴۱",
+        "۱۱۵۸",
+        "۱۰۴۱",
+        "۱۰۴۲",
+        "۱۰۴۴",
+        "۱۳۱۴",
+        "۱۰۴۴",
+        "۱۰۴۳",
+        "۱۱۶۴"
+      ],
+      "first_relevant_rank": 1,
+      "hit_at_1": true,
+      "hit_at_3": true,
+      "hit_at_5": true,
+      "hit_at_10": true,
+      "retrieval_results": [
+        {
+          "article": "۱۰۴۱",
+          "retrieval_type": "semantic",
+          "distance": 0.7987509369850159
+        },
+        {
+          "article": "۱۰۴۱",
+          "retrieval_type": "semantic",
+          "distance": 0.8007073402404785
+        },
+        {
+          "article": "۱۱۵۸",
+          "retrieval_type": "semantic",
+          "distance": 0.8451892137527466
+        },
+        {
+          "article": "۱۰۴۱",
+          "retrieval_type": "semantic",
+          "distance": 0.8621791005134583
+        },
+        {
+          "article": "۱۰۴۲",
+          "retrieval_type": "semantic",
+          "distance": 0.8790484070777893
+        },
+        {
+          "article": "۱۰۴۴",
+          "retrieval_type": "semantic",
+          "distance": 0.8906058669090271
+        },
+        {
+          "article": "۱۳۱۴",
+          "retrieval_type": "semantic",
+          "distance": 0.9128778576850891
+        },
+        {
+          "article": "۱۰۴۴",
+          "retrieval_type": "semantic",
+          "distance": 0.9203444123268127
+        },
+        {
+          "article": "۱۰۴۳",
+          "retrieval_type": "semantic",
+          "distance": 0.9229856729507446
+        },
+        {
+          "article": "۱۱۶۴",
+          "retrieval_type": "semantic",
+          "distance": 0.9437128305435181
+        }
+      ]
+    },
+    {
+      "question": "آیا برای ازدواج دختر زیر سن مقرر قانونی اجازه ولی کافی است؟",
+      "expected_articles": [
+        "۱۰۴۱"
+      ],
+      "retrieved_articles": [
+        "۱۰۴۱",
+        "۱۰۴۱",
+        "۱۰۴۱",
+        "۱۰۴۳",
+        "۱۰۴۳",
+        "۱۰۴۲",
+        "۱۰۴۴",
+        "۱۰۴۳",
+        "۱۰۶۰",
+        "۱۰۴۴"
+      ],
+      "first_relevant_rank": 1,
+      "hit_at_1": true,
+      "hit_at_3": true,
+      "hit_at_5": true,
+      "hit_at_10": true,
+      "retrieval_results": [
+        {
+          "article": "۱۰۴۱",
+          "retrieval_type": "semantic",
+          "distance": 0.8156147003173828
+        },
+        {
+          "article": "۱۰۴۱",
+          "retrieval_type": "semantic",
+          "distance": 0.8320204615592957
+        },
+        {
+          "article": "۱۰۴۱",
+          "retrieval_type": "semantic",
+          "distance": 0.8411369323730469
+        },
+        {
+          "article": "۱۰۴۳",
+          "retrieval_type": "semantic",
+          "distance": 0.8464163541793823
+        },
+        {
+          "article": "۱۰۴۳",
+          "retrieval_type": "semantic",
+          "distance": 0.8559143543243408
+        },
+        {
+          "article": "۱۰۴۲",
+          "retrieval_type": "semantic",
+          "distance": 0.8777680397033691
+        },
+        {
+          "article": "۱۰۴۴",
+          "retrieval_type": "semantic",
+          "distance": 0.8941845893859863
+        },
+        {
+          "article": "۱۰۴۳",
+          "retrieval_type": "semantic",
+          "distance": 0.8992151021957397
+        },
+        {
+          "article": "۱۰۶۰",
+          "retrieval_type": "semantic",
+          "distance": 0.9055711030960083
+        },
+        {
+          "article": "۱۰۴۴",
+          "retrieval_type": "semantic",
+          "distance": 0.9281620979309082
+        }
+      ]
+    },
+    {
+      "question": "اگر نکاح به طور صحیح واقع شود چه آثاری ایجاد می‌کند؟",
+      "expected_articles": [
+        "۱۱۰۲"
+      ],
+      "retrieved_articles": [
+        "۱۱۰۲",
+        "۱۰۸۷",
+        "۱۱۲۰",
+        "۱۰۶۲",
+        "۱۰۸۱",
+        "۱۰۵۵",
+        "۱۱۶۰",
+        "۱۰۳۵",
+        "۱۰۹۸",
+        "۱۰۷۵"
+      ],
+      "first_relevant_rank": 1,
+      "hit_at_1": true,
+      "hit_at_3": true,
+      "hit_at_5": true,
+      "hit_at_10": true,
+      "retrieval_results": [
+        {
+          "article": "۱۱۰۲",
+          "retrieval_type": "semantic",
+          "distance": 0.8246106505393982
+        },
+        {
+          "article": "۱۰۸۷",
+          "retrieval_type": "semantic",
+          "distance": 0.8856848478317261
+        },
+        {
+          "article": "۱۱۲۰",
+          "retrieval_type": "semantic",
+          "distance": 0.8979535698890686
+        },
+        {
+          "article": "۱۰۶۲",
+          "retrieval_type": "semantic",
+          "distance": 0.8984416723251343
+        },
+        {
+          "article": "۱۰۸۱",
+          "retrieval_type": "semantic",
+          "distance": 0.9106928110122681
+        },
+        {
+          "article": "۱۰۵۵",
+          "retrieval_type": "semantic",
+          "distance": 0.9353095889091492
+        },
+        {
+          "article": "۱۱۶۰",
+          "retrieval_type": "semantic",
+          "distance": 0.9371228218078613
+        },
+        {
+          "article": "۱۰۳۵",
+          "retrieval_type": "semantic",
+          "distance": 0.9555736184120178
+        },
+        {
+          "article": "۱۰۹۸",
+          "retrieval_type": "semantic",
+          "distance": 0.9642952680587769
+        },
+        {
+          "article": "۱۰۷۵",
+          "retrieval_type": "semantic",
+          "distance": 0.9686996936798096
+        }
+      ]
+    },
+    {
+      "question": "حقوق و تکالیف زوجین از چه زمانی برقرار می‌شود؟",
+      "expected_articles": [
+        "۱۱۰۲"
+      ],
+      "retrieved_articles": [
+        "۱۱۰۲",
+        "۱۱۰۱",
+        "۱۲۵۱",
+        "۱۱۵۹",
+        "۱۱۲۲",
+        "۱۱۲۲",
+        "۱۰۴۱",
+        "۱۲۲۱",
+        "۱۰۴۱",
+        "۱۰۳۵"
+      ],
+      "first_relevant_rank": 1,
+      "hit_at_1": true,
+      "hit_at_3": true,
+      "hit_at_5": true,
+      "hit_at_10": true,
+      "retrieval_results": [
+        {
+          "article": "۱۱۰۲",
+          "retrieval_type": "semantic",
+          "distance": 0.9187001585960388
+        },
+        {
+          "article": "۱۱۰۱",
+          "retrieval_type": "semantic",
+          "distance": 1.0931541919708252
+        },
+        {
+          "article": "۱۲۵۱",
+          "retrieval_type": "semantic",
+          "distance": 1.1076769828796387
+        },
+        {
+          "article": "۱۱۵۹",
+          "retrieval_type": "semantic",
+          "distance": 1.1162704229354858
+        },
+        {
+          "article": "۱۱۲۲",
+          "retrieval_type": "semantic",
+          "distance": 1.1192342042922974
+        },
+        {
+          "article": "۱۱۲۲",
+          "retrieval_type": "semantic",
+          "distance": 1.123966097831726
+        },
+        {
+          "article": "۱۰۴۱",
+          "retrieval_type": "semantic",
+          "distance": 1.144842505455017
+        },
+        {
+          "article": "۱۲۲۱",
+          "retrieval_type": "semantic",
+          "distance": 1.1476554870605469
+        },
+        {
+          "article": "۱۰۴۱",
+          "retrieval_type": "semantic",
+          "distance": 1.1489074230194092
+        },
+        {
+          "article": "۱۰۳۵",
+          "retrieval_type": "semantic",
+          "distance": 1.151839256286621
+        }
+      ]
+    },
+    {
+      "question": "چه شروطی را می‌توان ضمن عقد ازدواج قرار داد؟",
+      "expected_articles": [
+        "۱۱۱۹"
+      ],
+      "retrieved_articles": [
+        "۱۱۱۹",
+        "۱۰۳۵",
+        "۱۰۴۴",
+        "۱۰۷۰",
+        "۱۰۴۴",
+        "۱۰۸۷",
+        "۱۰۴۳",
+        "۱۰۴۳",
+        "۲۳۲",
+        "۱۱۱۳"
+      ],
+      "first_relevant_rank": 1,
+      "hit_at_1": true,
+      "hit_at_3": true,
+      "hit_at_5": true,
+      "hit_at_10": true,
+      "retrieval_results": [
+        {
+          "article": "۱۱۱۹",
+          "retrieval_type": "semantic",
+          "distance": 0.6794190406799316
+        },
+        {
+          "article": "۱۰۳۵",
+          "retrieval_type": "semantic",
+          "distance": 0.866838276386261
+        },
+        {
+          "article": "۱۰۴۴",
+          "retrieval_type": "semantic",
+          "distance": 0.882535457611084
+        },
+        {
+          "article": "۱۰۷۰",
+          "retrieval_type": "semantic",
+          "distance": 0.9044665694236755
+        },
+        {
+          "article": "۱۰۴۴",
+          "retrieval_type": "semantic",
+          "distance": 0.9190171360969543
+        },
+        {
+          "article": "۱۰۸۷",
+          "retrieval_type": "semantic",
+          "distance": 0.9858969449996948
+        },
+        {
+          "article": "۱۰۴۳",
+          "retrieval_type": "semantic",
+          "distance": 0.997105062007904
+        },
+        {
+          "article": "۱۰۴۳",
+          "retrieval_type": "semantic",
+          "distance": 1.0000050067901611
+        },
+        {
+          "article": "۲۳۲",
+          "retrieval_type": "semantic",
+          "distance": 1.0053701400756836
+        },
+        {
+          "article": "۱۱۱۳",
+          "retrieval_type": "semantic",
+          "distance": 1.0087244510650635
+        }
+      ]
+    },
+    {
+      "question": "آیا زوجین می‌توانند در عقد ازدواج شرط وکالت برای طلاق قرار دهند؟",
+      "expected_articles": [
+        "۱۱۱۹"
+      ],
+      "retrieved_articles": [
+        "۱۱۱۹",
+        "۱۰۷۰",
+        "۱۰۷۱",
+        "۱۱۳۴",
+        "۱۱۳۳",
+        "۱۰۳۵",
+        "۱۱۳۰",
+        "۱۱۳۲",
+        "۱۱۳۸",
+        "۱۱۳۰"
+      ],
+      "first_relevant_rank": 1,
+      "hit_at_1": true,
+      "hit_at_3": true,
+      "hit_at_5": true,
+      "hit_at_10": true,
+      "retrieval_results": [
+        {
+          "article": "۱۱۱۹",
+          "retrieval_type": "semantic",
+          "distance": 0.6959212422370911
+        },
+        {
+          "article": "۱۰۷۰",
+          "retrieval_type": "semantic",
+          "distance": 0.7097008228302002
+        },
+        {
+          "article": "۱۰۷۱",
+          "retrieval_type": "semantic",
+          "distance": 0.7808332443237305
+        },
+        {
+          "article": "۱۱۳۴",
+          "retrieval_type": "semantic",
+          "distance": 0.8737818002700806
+        },
+        {
+          "article": "۱۱۳۳",
+          "retrieval_type": "semantic",
+          "distance": 0.874194860458374
+        },
+        {
+          "article": "۱۰۳۵",
+          "retrieval_type": "semantic",
+          "distance": 0.8781007528305054
+        },
+        {
+          "article": "۱۱۳۰",
+          "retrieval_type": "semantic",
+          "distance": 0.8967934250831604
+        },
+        {
+          "article": "۱۱۳۲",
+          "retrieval_type": "semantic",
+          "distance": 0.8982850313186646
+        },
+        {
+          "article": "۱۱۳۸",
+          "retrieval_type": "semantic",
+          "distance": 0.918203592300415
+        },
+        {
+          "article": "۱۱۳۰",
+          "retrieval_type": "semantic",
+          "distance": 0.9265182018280029
+        }
+      ]
+    },
+    {
+      "question": "چه عواملی باعث انحلال عقد نکاح می‌شوند؟",
+      "expected_articles": [
+        "۱۱۲۰"
+      ],
+      "retrieved_articles": [
+        "۱۱۲۰",
+        "۱۱۱۹",
+        "۱۱۵۰",
+        "۱۰۷۵",
+        "۱۰۶۹",
+        "۱۱۰۱",
+        "۱۰۷۰",
+        "۱۰۹۵",
+        "۱۰۹۶",
+        "۱۰۸۱"
+      ],
+      "first_relevant_rank": 1,
+      "hit_at_1": true,
+      "hit_at_3": true,
+      "hit_at_5": true,
+      "hit_at_10": true,
+      "retrieval_results": [
+        {
+          "article": "۱۱۲۰",
+          "retrieval_type": "semantic",
+          "distance": 0.6594616174697876
+        },
+        {
+          "article": "۱۱۱۹",
+          "retrieval_type": "semantic",
+          "distance": 0.7537969350814819
+        },
+        {
+          "article": "۱۱۵۰",
+          "retrieval_type": "semantic",
+          "distance": 0.8339513540267944
+        },
+        {
+          "article": "۱۰۷۵",
+          "retrieval_type": "semantic",
+          "distance": 0.9092713594436646
+        },
+        {
+          "article": "۱۰۶۹",
+          "retrieval_type": "semantic",
+          "distance": 0.9108226895332336
+        },
+        {
+          "article": "۱۱۰۱",
+          "retrieval_type": "semantic",
+          "distance": 0.9202089309692383
+        },
+        {
+          "article": "۱۰۷۰",
+          "retrieval_type": "semantic",
+          "distance": 0.9227596521377563
+        },
+        {
+          "article": "۱۰۹۵",
+          "retrieval_type": "semantic",
+          "distance": 0.9344907999038696
+        },
+        {
+          "article": "۱۰۹۶",
+          "retrieval_type": "semantic",
+          "distance": 0.9512795209884644
+        },
+        {
+          "article": "۱۰۸۱",
+          "retrieval_type": "semantic",
+          "distance": 0.9727816581726074
+        }
+      ]
+    },
+    {
+      "question": "عقد نکاح از چه راه‌هایی منحل می‌شود؟",
+      "expected_articles": [
+        "۱۱۲۰"
+      ],
+      "retrieved_articles": [
+        "۱۱۲۰",
+        "۱۱۰۲",
+        "۱۰۷۵",
+        "۱۰۶۲",
+        "۱۱۵۰",
+        "۱۱۱۹",
+        "۱۰۳۵",
+        "۱۰۴۳",
+        "۱۱۳۲",
+        "۹۷۰"
+      ],
+      "first_relevant_rank": 1,
+      "hit_at_1": true,
+      "hit_at_3": true,
+      "hit_at_5": true,
+      "hit_at_10": true,
+      "retrieval_results": [
+        {
+          "article": "۱۱۲۰",
+          "retrieval_type": "semantic",
+          "distance": 0.6690710783004761
+        },
+        {
+          "article": "۱۱۰۲",
+          "retrieval_type": "semantic",
+          "distance": 0.8317028284072876
+        },
+        {
+          "article": "۱۰۷۵",
+          "retrieval_type": "semantic",
+          "distance": 0.834373950958252
+        },
+        {
+          "article": "۱۰۶۲",
+          "retrieval_type": "semantic",
+          "distance": 0.8370438814163208
+        },
+        {
+          "article": "۱۱۵۰",
+          "retrieval_type": "semantic",
+          "distance": 0.891569972038269
+        },
+        {
+          "article": "۱۱۱۹",
+          "retrieval_type": "semantic",
+          "distance": 0.8973435163497925
+        },
+        {
+          "article": "۱۰۳۵",
+          "retrieval_type": "semantic",
+          "distance": 0.9142685532569885
+        },
+        {
+          "article": "۱۰۴۳",
+          "retrieval_type": "semantic",
+          "distance": 0.9180116653442383
+        },
+        {
+          "article": "۱۱۳۲",
+          "retrieval_type": "semantic",
+          "distance": 0.9265047311782837
+        },
+        {
+          "article": "۹۷۰",
+          "retrieval_type": "semantic",
+          "distance": 0.9265081286430359
+        }
+      ]
+    },
+    {
+      "question": "آیا برای فسخ نکاح رعایت تشریفات طلاق لازم است؟",
+      "expected_articles": [
+        "۱۱۳۲"
+      ],
+      "retrieved_articles": [
+        "۱۱۳۲",
+        "۱۱۲۰",
+        "۱۱۳۱",
+        "۱۱۵۲",
+        "۱۱۵۱",
+        "۱۰۶۹",
+        "۱۱۵۳",
+        "۱۱۳۴",
+        "۱۱۰۱",
+        "۱۱۰۹"
+      ],
+      "first_relevant_rank": 1,
+      "hit_at_1": true,
+      "hit_at_3": true,
+      "hit_at_5": true,
+      "hit_at_10": true,
+      "retrieval_results": [
+        {
+          "article": "۱۱۳۲",
+          "retrieval_type": "semantic",
+          "distance": 0.6951028108596802
+        },
+        {
+          "article": "۱۱۲۰",
+          "retrieval_type": "semantic",
+          "distance": 0.7521787881851196
+        },
+        {
+          "article": "۱۱۳۱",
+          "retrieval_type": "semantic",
+          "distance": 0.7894771099090576
+        },
+        {
+          "article": "۱۱۵۲",
+          "retrieval_type": "semantic",
+          "distance": 0.7910054922103882
+        },
+        {
+          "article": "۱۱۵۱",
+          "retrieval_type": "semantic",
+          "distance": 0.8245626091957092
+        },
+        {
+          "article": "۱۰۶۹",
+          "retrieval_type": "semantic",
+          "distance": 0.828188419342041
+        },
+        {
+          "article": "۱۱۵۳",
+          "retrieval_type": "semantic",
+          "distance": 0.8718566298484802
+        },
+        {
+          "article": "۱۱۳۴",
+          "retrieval_type": "semantic",
+          "distance": 0.8825929164886475
+        },
+        {
+          "article": "۱۱۰۱",
+          "retrieval_type": "semantic",
+          "distance": 0.9011279344558716
+        },
+        {
+          "article": "۱۱۰۹",
+          "retrieval_type": "semantic",
+          "distance": 0.9126129150390625
+        }
+      ]
+    },
+    {
+      "question": "در چه شرایطی زن پس از فسخ نکاح حق دریافت مهر ندارد؟",
+      "expected_articles": [
+        "۱۱۰۱"
+      ],
+      "retrieved_articles": [
+        "۱۰۹۸",
+        "۱۱۰۱",
+        "۱۰۸۷",
+        "۱۰۸۱",
+        "۱۰۹۶",
+        "۱۱۰۹",
+        "۱۰۹۳",
+        "۱۱۱۳",
+        "۱۰۸۶",
+        "۱۰۹۵"
+      ],
+      "first_relevant_rank": 2,
+      "hit_at_1": false,
+      "hit_at_3": true,
+      "hit_at_5": true,
+      "hit_at_10": true,
+      "retrieval_results": [
+        {
+          "article": "۱۰۹۸",
+          "retrieval_type": "semantic",
+          "distance": 0.5007975101470947
+        },
+        {
+          "article": "۱۱۰۱",
+          "retrieval_type": "semantic",
+          "distance": 0.5555326342582703
+        },
+        {
+          "article": "۱۰۸۷",
+          "retrieval_type": "semantic",
+          "distance": 0.6792230010032654
+        },
+        {
+          "article": "۱۰۸۱",
+          "retrieval_type": "semantic",
+          "distance": 0.7381859421730042
+        },
+        {
+          "article": "۱۰۹۶",
+          "retrieval_type": "semantic",
+          "distance": 0.7397030591964722
+        },
+        {
+          "article": "۱۱۰۹",
+          "retrieval_type": "semantic",
+          "distance": 0.7664030194282532
+        },
+        {
+          "article": "۱۰۹۳",
+          "retrieval_type": "semantic",
+          "distance": 0.7988352179527283
+        },
+        {
+          "article": "۱۱۱۳",
+          "retrieval_type": "semantic",
+          "distance": 0.812674880027771
+        },
+        {
+          "article": "۱۰۸۶",
+          "retrieval_type": "semantic",
+          "distance": 0.8355024456977844
+        },
+        {
+          "article": "۱۰۹۵",
+          "retrieval_type": "semantic",
+          "distance": 0.8379497528076172
+        }
+      ]
+    },
+    {
+      "question": "اگر نکاح باطل باشد و نزدیکی صورت نگرفته باشد، زن حق مهر دارد؟",
+      "expected_articles": [
+        "۱۰۹۸"
+      ],
+      "retrieved_articles": [
+        "۱۰۹۸",
+        "۱۰۸۱",
+        "۱۱۰۱",
+        "۱۰۸۷",
+        "۱۰۹۹",
+        "۱۰۹۶",
+        "۱۰۵۵",
+        "۱۰۹۵",
+        "۱۰۹۳",
+        "۱۰۵۰"
+      ],
+      "first_relevant_rank": 1,
+      "hit_at_1": true,
+      "hit_at_3": true,
+      "hit_at_5": true,
+      "hit_at_10": true,
+      "retrieval_results": [
+        {
+          "article": "۱۰۹۸",
+          "retrieval_type": "semantic",
+          "distance": 0.3491794466972351
+        },
+        {
+          "article": "۱۰۸۱",
+          "retrieval_type": "semantic",
+          "distance": 0.5409705638885498
+        },
+        {
+          "article": "۱۱۰۱",
+          "retrieval_type": "semantic",
+          "distance": 0.5440167188644409
+        },
+        {
+          "article": "۱۰۸۷",
+          "retrieval_type": "semantic",
+          "distance": 0.6292216777801514
+        },
+        {
+          "article": "۱۰۹۹",
+          "retrieval_type": "semantic",
+          "distance": 0.6384008526802063
+        },
+        {
+          "article": "۱۰۹۶",
+          "retrieval_type": "semantic",
+          "distance": 0.7103870511054993
+        },
+        {
+          "article": "۱۰۵۵",
+          "retrieval_type": "semantic",
+          "distance": 0.7192966341972351
+        },
+        {
+          "article": "۱۰۹۵",
+          "retrieval_type": "semantic",
+          "distance": 0.7826179265975952
+        },
+        {
+          "article": "۱۰۹۳",
+          "retrieval_type": "semantic",
+          "distance": 0.7858663201332092
+        },
+        {
+          "article": "۱۰۵۰",
+          "retrieval_type": "semantic",
+          "distance": 0.7987204194068909
+        }
+      ]
+    },
+    {
+      "question": "اگر عقد نکاح باطل باشد و زن مهر را دریافت کرده باشد، آیا شوهر می‌تواند مهر را پس بگیرد؟",
+      "expected_articles": [
+        "۱۰۹۸"
+      ],
+      "retrieved_articles": [
+        "۱۰۹۸",
+        "۱۰۸۱",
+        "۱۱۰۱",
+        "۱۰۸۷",
+        "۱۰۹۶",
+        "۱۰۹۳",
+        "۱۱۶۰",
+        "۱۰۸۹",
+        "۱۰۹۷",
+        "۱۰۹۲"
+      ],
+      "first_relevant_rank": 1,
+      "hit_at_1": true,
+      "hit_at_3": true,
+      "hit_at_5": true,
+      "hit_at_10": true,
+      "retrieval_results": [
+        {
+          "article": "۱۰۹۸",
+          "retrieval_type": "semantic",
+          "distance": 0.31446701288223267
+        },
+        {
+          "article": "۱۰۸۱",
+          "retrieval_type": "semantic",
+          "distance": 0.6014803647994995
+        },
+        {
+          "article": "۱۱۰۱",
+          "retrieval_type": "semantic",
+          "distance": 0.6791057586669922
+        },
+        {
+          "article": "۱۰۸۷",
+          "retrieval_type": "semantic",
+          "distance": 0.7087429761886597
+        },
+        {
+          "article": "۱۰۹۶",
+          "retrieval_type": "semantic",
+          "distance": 0.7247341871261597
+        },
+        {
+          "article": "۱۰۹۳",
+          "retrieval_type": "semantic",
+          "distance": 0.7275235652923584
+        },
+        {
+          "article": "۱۱۶۰",
+          "retrieval_type": "semantic",
+          "distance": 0.7661524415016174
+        },
+        {
+          "article": "۱۰۸۹",
+          "retrieval_type": "semantic",
+          "distance": 0.7787343263626099
+        },
+        {
+          "article": "۱۰۹۷",
+          "retrieval_type": "semantic",
+          "distance": 0.7934505939483643
+        },
+        {
+          "article": "۱۰۹۲",
+          "retrieval_type": "semantic",
+          "distance": 0.8027448654174805
+        }
+      ]
+    },
+    {
+      "question": "عده چیست و چه مفهومی دارد؟",
+      "expected_articles": [
+        "۱۱۵۰"
+      ],
+      "retrieved_articles": [
+        "۱۸۳",
+        "۶۴۸",
+        "۷۹۵",
+        "۸۲۶",
+        "۶۸۴",
+        "۶۰۷",
+        "۶۹۷",
+        "۷۳۴",
+        "۱۶۴",
+        "۴۶۹"
+      ],
+      "first_relevant_rank": null,
+      "hit_at_1": false,
+      "hit_at_3": false,
+      "hit_at_5": false,
+      "hit_at_10": false,
+      "retrieval_results": [
+        {
+          "article": "۱۸۳",
+          "retrieval_type": "semantic",
+          "distance": 1.13442862033844
+        },
+        {
+          "article": "۶۴۸",
+          "retrieval_type": "semantic",
+          "distance": 1.1459256410598755
+        },
+        {
+          "article": "۷۹۵",
+          "retrieval_type": "semantic",
+          "distance": 1.1666972637176514
+        },
+        {
+          "article": "۸۲۶",
+          "retrieval_type": "semantic",
+          "distance": 1.1823575496673584
+        },
+        {
+          "article": "۶۸۴",
+          "retrieval_type": "semantic",
+          "distance": 1.18546724319458
+        },
+        {
+          "article": "۶۰۷",
+          "retrieval_type": "semantic",
+          "distance": 1.1950212717056274
+        },
+        {
+          "article": "۶۹۷",
+          "retrieval_type": "semantic",
+          "distance": 1.199242353439331
+        },
+        {
+          "article": "۷۳۴",
+          "retrieval_type": "semantic",
+          "distance": 1.2058579921722412
+        },
+        {
+          "article": "۱۶۴",
+          "retrieval_type": "semantic",
+          "distance": 1.2071552276611328
+        },
+        {
+          "article": "۴۶۹",
+          "retrieval_type": "semantic",
+          "distance": 1.2084753513336182
+        }
+      ]
+    },
+    {
+      "question": "اثر قانون نسبت به گذشته چگونه است؟",
+      "expected_articles": [
+        "۴"
+      ],
+      "retrieved_articles": [
+        "۴",
+        "۱۳۱۹",
+        "۱۲۶۹",
+        "۳۲۲",
+        "۳۶",
+        "۱۲۶۷",
+        "۱۱۱۲",
+        "۹۷۳",
+        "۲۵۴",
+        "۲۰۹"
+      ],
+      "first_relevant_rank": 1,
+      "hit_at_1": true,
+      "hit_at_3": true,
+      "hit_at_5": true,
+      "hit_at_10": true,
+      "retrieval_results": [
+        {
+          "article": "۴",
+          "retrieval_type": "semantic",
+          "distance": 0.9012148380279541
+        },
+        {
+          "article": "۱۳۱۹",
+          "retrieval_type": "semantic",
+          "distance": 1.2063093185424805
+        },
+        {
+          "article": "۱۲۶۹",
+          "retrieval_type": "semantic",
+          "distance": 1.207120656967163
+        },
+        {
+          "article": "۳۲۲",
+          "retrieval_type": "semantic",
+          "distance": 1.2076749801635742
+        },
+        {
+          "article": "۳۶",
+          "retrieval_type": "semantic",
+          "distance": 1.2087390422821045
+        },
+        {
+          "article": "۱۲۶۷",
+          "retrieval_type": "semantic",
+          "distance": 1.2234431505203247
+        },
+        {
+          "article": "۱۱۱۲",
+          "retrieval_type": "semantic",
+          "distance": 1.2290388345718384
+        },
+        {
+          "article": "۹۷۳",
+          "retrieval_type": "semantic",
+          "distance": 1.2355072498321533
+        },
+        {
+          "article": "۲۵۴",
+          "retrieval_type": "semantic",
+          "distance": 1.2356152534484863
+        },
+        {
+          "article": "۲۰۹",
+          "retrieval_type": "semantic",
+          "distance": 1.2400259971618652
+        }
+      ]
+    },
+    {
+      "question": "قوانین ایران نسبت به اتباع خارجی مقیم ایران چه حکمی دارد؟",
+      "expected_articles": [
+        "۵",
+        "۷"
+      ],
+      "retrieved_articles": [
+        "۷",
+        "۹۶۱",
+        "۹۸۹",
+        "۹۷۲",
+        "۱۰۰۱",
+        "۱۰۶۰",
+        "۶",
+        "۸",
+        "۹۷۸",
+        "۹۸۷"
+      ],
+      "first_relevant_rank": 1,
+      "hit_at_1": true,
+      "hit_at_3": true,
+      "hit_at_5": true,
+      "hit_at_10": true,
+      "retrieval_results": [
+        {
+          "article": "۷",
+          "retrieval_type": "semantic",
+          "distance": 0.7085187435150146
+        },
+        {
+          "article": "۹۶۱",
+          "retrieval_type": "semantic",
+          "distance": 0.8581013679504395
+        },
+        {
+          "article": "۹۸۹",
+          "retrieval_type": "semantic",
+          "distance": 0.8993659615516663
+        },
+        {
+          "article": "۹۷۲",
+          "retrieval_type": "semantic",
+          "distance": 0.9045043587684631
+        },
+        {
+          "article": "۱۰۰۱",
+          "retrieval_type": "semantic",
+          "distance": 0.9209403991699219
+        },
+        {
+          "article": "۱۰۶۰",
+          "retrieval_type": "semantic",
+          "distance": 0.923656702041626
+        },
+        {
+          "article": "۶",
+          "retrieval_type": "semantic",
+          "distance": 0.9238733053207397
+        },
+        {
+          "article": "۸",
+          "retrieval_type": "semantic",
+          "distance": 0.9292232990264893
+        },
+        {
+          "article": "۹۷۸",
+          "retrieval_type": "semantic",
+          "distance": 0.936113178730011
+        },
+        {
+          "article": "۹۸۷",
+          "retrieval_type": "semantic",
+          "distance": 0.9445081949234009
+        }
+      ]
+    }
+  ]
+}

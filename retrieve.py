@@ -2,6 +2,7 @@ import re
 
 import chromadb
 import ollama
+from rank_bm25 import BM25Okapi
 
 
 # =========================
@@ -13,8 +14,9 @@ COLLECTION_NAME = "civil_law_v2"
 
 EMBEDDING_MODEL = "qwen3-embedding:0.6b"
 
-SEMANTIC_TOP_K = 10
-FINAL_TOP_K = 10
+SEMANTIC_TOP_K = 30
+KEYWORD_TOP_K = 30
+FINAL_TOP_K = 20
 
 
 # =========================
@@ -254,6 +256,171 @@ def select_current_version(results):
     return [dated_results[0][1]]
 
 
+def normalize_text(text):
+    """
+    Normalize Persian/Arabic text for keyword matching.
+    """
+
+    if not text:
+        return ""
+
+    text = normalize_digits(text)
+
+    # Arabic Yeh -> Persian Yeh
+    text = text.replace("ي", "ی")
+
+    # Arabic Kaf -> Persian Kaf
+    text = text.replace("ك", "ک")
+
+    # Remove Arabic diacritics
+    text = re.sub(r"[\u064B-\u065F\u0670]", "", text)
+
+    # Normalize different forms of نیم‌فاصله
+    text = text.replace("\u200c", " ")
+
+    # Normalize whitespace
+    text = re.sub(r"\s+", " ", text)
+
+    return text.strip()
+
+
+def tokenize_persian(text):
+    """
+    Simple tokenization for Persian legal text.
+    """
+
+    text = normalize_text(text)
+
+    return re.findall(
+        r"[\w\u0600-\u06FF]+",
+        text
+    )
+
+
+def keyword_search(query, top_k=30):
+    """
+    BM25 keyword search over all current legal articles.
+    """
+
+    print()
+    print("=" * 70)
+    print("KEYWORD SEARCH")
+    print("=" * 70)
+
+    # ---------------------------------
+    # Get all documents
+    # ---------------------------------
+
+    all_data = collection.get(
+        include=[
+            "documents",
+            "metadatas"
+        ]
+    )
+
+    documents = all_data["documents"]
+    metadatas = all_data["metadatas"]
+    ids = all_data["ids"]
+
+    if not documents:
+        return []
+
+    # ---------------------------------
+    # Build corpus
+    # ---------------------------------
+
+    tokenized_corpus = [
+        tokenize_persian(document)
+        for document in documents
+    ]
+
+    bm25 = BM25Okapi(tokenized_corpus)
+
+    query_tokens = tokenize_persian(query)
+
+    if not query_tokens:
+        return []
+
+    # ---------------------------------
+    # Calculate BM25 scores
+    # ---------------------------------
+
+    scores = bm25.get_scores(query_tokens)
+
+    ranked_indices = sorted(
+        range(len(scores)),
+        key=lambda i: scores[i],
+        reverse=True
+    )
+
+    # ---------------------------------
+    # Build results
+    # ---------------------------------
+
+    raw_results = []
+
+    for index in ranked_indices[:top_k]:
+
+        raw_results.append({
+            "id": ids[index],
+            "document": documents[index],
+            "metadata": metadatas[index],
+            "keyword_score": float(scores[index]),
+            "distance": None,
+            "retrieval_type": "keyword"
+        })
+
+    # ---------------------------------
+    # Group by article
+    # ---------------------------------
+
+    results_by_article = {}
+
+    for result in raw_results:
+
+        article = result["metadata"].get(
+            "article"
+        )
+
+        if article is None:
+            continue
+
+        if article not in results_by_article:
+            results_by_article[article] = []
+
+        results_by_article[article].append(result)
+
+    # ---------------------------------
+    # Resolve current legal version
+    # ---------------------------------
+
+    final_results = []
+
+    for article, results in results_by_article.items():
+
+        selected = select_current_version(
+            results
+        )
+
+        final_results.extend(selected)
+
+    # ---------------------------------
+    # Sort again by BM25 score
+    # ---------------------------------
+
+    final_results.sort(
+        key=lambda x: x["keyword_score"],
+        reverse=True
+    )
+
+    print(
+        f"Keyword matches found: "
+        f"{len(final_results)}"
+    )
+
+    return final_results[:top_k]
+
+
 exact_results = []
 
 
@@ -424,12 +591,41 @@ else:
 
 
 # =========================
-# Merge Results
+# Keyword Search
 # =========================
 
+keyword_results = []
+
+if article_number is None:
+
+    keyword_results = keyword_search(
+        query,
+        top_k=KEYWORD_TOP_K
+    )
+
+else:
+
+    print()
+    print("=" * 70)
+    print("KEYWORD SEARCH SKIPPED")
+    print("=" * 70)
+
+    print(
+        "Exact article query detected. "
+        "Keyword search is not needed."
+    )
+
+
+# =========================
+# Merge Results
+# =========================
 merged_results = []
 
 seen_ids = set()
+
+# ---------------------------------
+# Exact results first
+# ---------------------------------
 
 for result in exact_results:
 
@@ -439,6 +635,10 @@ for result in exact_results:
         seen_ids.add(result["id"])
 
 
+# ---------------------------------
+# Semantic results
+# ---------------------------------
+
 for result in semantic_results:
 
     if result["id"] not in seen_ids:
@@ -447,7 +647,22 @@ for result in semantic_results:
         seen_ids.add(result["id"])
 
 
+# ---------------------------------
+# Keyword results
+# ---------------------------------
+
+for result in keyword_results:
+
+    if result["id"] not in seen_ids:
+
+        merged_results.append(result)
+        seen_ids.add(result["id"])
+
+
+# ---------------------------------
 # Limit final results
+# ---------------------------------
+
 merged_results = merged_results[:FINAL_TOP_K]
 
 
