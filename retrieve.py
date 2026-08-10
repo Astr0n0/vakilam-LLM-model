@@ -617,53 +617,194 @@ else:
 
 
 # =========================
+# Reciprocal Rank Fusion
+# =========================
+
+def reciprocal_rank_fusion(
+    semantic_results,
+    keyword_results,
+    exact_results=None,
+    k=60
+):
+    """
+    Combine semantic and keyword rankings using
+    Reciprocal Rank Fusion (RRF).
+
+    RRF score:
+        1 / (k + rank)
+
+    Exact article matches always receive highest priority.
+    """
+
+    if exact_results is None:
+        exact_results = []
+
+    fused = {}
+
+    # ---------------------------------
+    # Exact results
+    # ---------------------------------
+
+    for rank, result in enumerate(
+        exact_results,
+        start=1
+    ):
+        result_id = result["id"]
+
+        if result_id not in fused:
+            fused[result_id] = {
+                "result": result,
+                "rrf_score": 0.0,
+                "semantic_rank": None,
+                "keyword_rank": None,
+                "exact": True
+            }
+
+    # ---------------------------------
+    # Semantic ranking
+    # ---------------------------------
+
+    for rank, result in enumerate(
+        semantic_results,
+        start=1
+    ):
+        result_id = result["id"]
+
+        if result_id not in fused:
+            fused[result_id] = {
+                "result": result,
+                "rrf_score": 0.0,
+                "semantic_rank": None,
+                "keyword_rank": None,
+                "exact": False
+            }
+
+        fused[result_id]["rrf_score"] += (
+            1.0 / (k + rank)
+        )
+
+        fused[result_id]["semantic_rank"] = rank
+
+    # ---------------------------------
+    # Keyword ranking
+    # ---------------------------------
+
+    for rank, result in enumerate(
+        keyword_results,
+        start=1
+    ):
+        result_id = result["id"]
+
+        if result_id not in fused:
+            fused[result_id] = {
+                "result": result,
+                "rrf_score": 0.0,
+                "semantic_rank": None,
+                "keyword_rank": None,
+                "exact": False
+            }
+
+        fused[result_id]["rrf_score"] += (
+            1.0 / (k + rank)
+        )
+
+        fused[result_id]["keyword_rank"] = rank
+
+    # ---------------------------------
+    # Sort
+    # ---------------------------------
+
+    ranked = sorted(
+        fused.values(),
+        key=lambda x: (
+            x["exact"],
+            x["rrf_score"]
+        ),
+        reverse=True
+    )
+
+    # ---------------------------------
+    # Build final results
+    # ---------------------------------
+
+    final_results = []
+
+    for item in ranked:
+
+        result = item["result"].copy()
+
+        result["rrf_score"] = item["rrf_score"]
+        result["semantic_rank"] = item["semantic_rank"]
+        result["keyword_rank"] = item["keyword_rank"]
+
+        final_results.append(result)
+
+    return final_results[:FINAL_TOP_K]
+
+
+# =========================
+# Retrieval Diagnostics
+# =========================
+
+print()
+print("=" * 70)
+print("RETRIEVAL DIAGNOSTICS")
+print("=" * 70)
+
+print()
+print("SEMANTIC RESULTS")
+print("-" * 70)
+
+for rank, result in enumerate(semantic_results, start=1):
+
+    metadata = result["metadata"]
+
+    print(
+        f"{rank:02d}. "
+        f"Article={metadata.get('article')} | "
+        f"Version={metadata.get('version')} | "
+        f"Distance={result.get('distance')}"
+    )
+
+print()
+print("KEYWORD RESULTS")
+print("-" * 70)
+
+for rank, result in enumerate(keyword_results, start=1):
+
+    metadata = result["metadata"]
+
+    print(
+        f"{rank:02d}. "
+        f"Article={metadata.get('article')} | "
+        f"Version={metadata.get('version')} | "
+        f"BM25={result.get('keyword_score')}"
+    )
+
+print()
+print("EXACT RESULTS")
+print("-" * 70)
+
+for rank, result in enumerate(exact_results, start=1):
+
+    metadata = result["metadata"]
+
+    print(
+        f"{rank:02d}. "
+        f"Article={metadata.get('article')} | "
+        f"Version={metadata.get('version')}"
+    )
+
+
+# =========================
 # Merge Results
 # =========================
-merged_results = []
 
-seen_ids = set()
-
-# ---------------------------------
-# Exact results first
-# ---------------------------------
-
-for result in exact_results:
-
-    if result["id"] not in seen_ids:
-
-        merged_results.append(result)
-        seen_ids.add(result["id"])
-
-
-# ---------------------------------
-# Semantic results
-# ---------------------------------
-
-for result in semantic_results:
-
-    if result["id"] not in seen_ids:
-
-        merged_results.append(result)
-        seen_ids.add(result["id"])
-
-
-# ---------------------------------
-# Keyword results
-# ---------------------------------
-
-for result in keyword_results:
-
-    if result["id"] not in seen_ids:
-
-        merged_results.append(result)
-        seen_ids.add(result["id"])
-
-
-# ---------------------------------
-# Limit final results
-# ---------------------------------
-
-merged_results = merged_results[:FINAL_TOP_K]
+merged_results = reciprocal_rank_fusion(
+    semantic_results=semantic_results,
+    keyword_results=keyword_results,
+    exact_results=exact_results
+)
 
 
 # =========================
@@ -704,6 +845,18 @@ for i, result in enumerate(merged_results):
 
     print(
         f"Retrieval type: {result['retrieval_type']}"
+    )
+
+    print(
+    f"Semantic rank: {result.get('semantic_rank')}"
+    )
+
+    print(
+        f"Keyword rank: {result.get('keyword_rank')}"
+    )
+
+    print(
+        f"RRF score: {result.get('rrf_score', 0):.6f}"
     )
 
     print(
