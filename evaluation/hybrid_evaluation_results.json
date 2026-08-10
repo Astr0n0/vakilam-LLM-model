@@ -1,0 +1,484 @@
+{
+  "collection": "civil_law_v2",
+  "embedding_model": "qwen3-embedding:0.6b",
+  "total_questions": 30,
+  "metrics": {
+    "semantic": {
+      "hit_at_1": 0.6666666666666666,
+      "hit_at_3": 0.8,
+      "hit_at_5": 0.8666666666666667,
+      "hit_at_10": 0.9,
+      "mrr": 0.7605699855699856
+    },
+    "bm25": {
+      "hit_at_1": 0.36666666666666664,
+      "hit_at_3": 0.6333333333333333,
+      "hit_at_5": 0.7,
+      "hit_at_10": 0.8666666666666667,
+      "mrr": 0.5157261448640759
+    },
+    "rrf": {
+      "hit_at_1": 0.6,
+      "hit_at_3": 0.8,
+      "hit_at_5": 0.9,
+      "hit_at_10": 0.9333333333333333,
+      "mrr": 0.7063299663299663
+    }
+  },
+  "questions": [
+    {
+      "question": "شرایط صحت نکاح چیست؟",
+      "expected_articles": [
+        "۱۰۶۷",
+        "۱۰۷۰"
+      ],
+      "semantic": {
+        "first_relevant_rank": 1
+      },
+      "bm25": {
+        "first_relevant_rank": 3
+      },
+      "rrf": {
+        "first_relevant_rank": 1
+      }
+    },
+    {
+      "question": "برای صحت عقد نکاح چه شرایطی لازم است؟",
+      "expected_articles": [
+        "۱۰۶۷",
+        "۱۰۷۰"
+      ],
+      "semantic": {
+        "first_relevant_rank": 1
+      },
+      "bm25": {
+        "first_relevant_rank": 1
+      },
+      "rrf": {
+        "first_relevant_rank": 1
+      }
+    },
+    {
+      "question": "رضایت زوجین در عقد نکاح چه اهمیتی دارد؟",
+      "expected_articles": [
+        "۱۰۷۰"
+      ],
+      "semantic": {
+        "first_relevant_rank": 11
+      },
+      "bm25": {
+        "first_relevant_rank": 8
+      },
+      "rrf": {
+        "first_relevant_rank": 4
+      }
+    },
+    {
+      "question": "اگر یکی از طرفین تحت اکراه عقد نکاح را قبول کند، وضعیت عقد چیست؟",
+      "expected_articles": [
+        "۱۰۷۰"
+      ],
+      "semantic": {
+        "first_relevant_rank": 1
+      },
+      "bm25": {
+        "first_relevant_rank": 3
+      },
+      "rrf": {
+        "first_relevant_rank": 1
+      }
+    },
+    {
+      "question": "آیا مشخص بودن زن و شوهر برای صحت نکاح ضروری است؟",
+      "expected_articles": [
+        "۱۰۶۷"
+      ],
+      "semantic": {
+        "first_relevant_rank": 1
+      },
+      "bm25": {
+        "first_relevant_rank": 1
+      },
+      "rrf": {
+        "first_relevant_rank": 1
+      }
+    },
+    {
+      "question": "اگر در عقد دائم مهر تعیین نشده باشد، آیا عقد باطل است؟",
+      "expected_articles": [
+        "۱۰۸۷"
+      ],
+      "semantic": {
+        "first_relevant_rank": 4
+      },
+      "bm25": {
+        "first_relevant_rank": 7
+      },
+      "rrf": {
+        "first_relevant_rank": 3
+      }
+    },
+    {
+      "question": "آیا عدم تعیین مهریه باعث بطلان نکاح دائم می‌شود؟",
+      "expected_articles": [
+        "۱۰۸۷"
+      ],
+      "semantic": {
+        "first_relevant_rank": 4
+      },
+      "bm25": {
+        "first_relevant_rank": 9
+      },
+      "rrf": {
+        "first_relevant_rank": 3
+      }
+    },
+    {
+      "question": "در نکاح منقطع مدت عقد باید مشخص باشد؟",
+      "expected_articles": [
+        "۱۰۷۵",
+        "۱۰۷۶"
+      ],
+      "semantic": {
+        "first_relevant_rank": 1
+      },
+      "bm25": {
+        "first_relevant_rank": 1
+      },
+      "rrf": {
+        "first_relevant_rank": 1
+      }
+    },
+    {
+      "question": "مدت نکاح موقت باید چگونه تعیین شود؟",
+      "expected_articles": [
+        "۱۰۷۶"
+      ],
+      "semantic": {
+        "first_relevant_rank": 2
+      },
+      "bm25": {
+        "first_relevant_rank": 2
+      },
+      "rrf": {
+        "first_relevant_rank": 1
+      }
+    },
+    {
+      "question": "نکاح منقطع چیست؟",
+      "expected_articles": [
+        "۱۰۷۵"
+      ],
+      "semantic": {
+        "first_relevant_rank": 1
+      },
+      "bm25": {
+        "first_relevant_rank": 3
+      },
+      "rrf": {
+        "first_relevant_rank": 1
+      }
+    },
+    {
+      "question": "چه کسانی به دلیل قرابت نمی‌توانند با یکدیگر ازدواج کنند؟",
+      "expected_articles": [
+        "۱۰۴۵"
+      ],
+      "semantic": {
+        "first_relevant_rank": 12
+      },
+      "bm25": {
+        "first_relevant_rank": null
+      },
+      "rrf": {
+        "first_relevant_rank": 22
+      }
+    },
+    {
+      "question": "چه ازدواج‌هایی به دلیل مصاهره ممنوع هستند؟",
+      "expected_articles": [
+        "۱۰۴۷"
+      ],
+      "semantic": {
+        "first_relevant_rank": 1
+      },
+      "bm25": {
+        "first_relevant_rank": null
+      },
+      "rrf": {
+        "first_relevant_rank": 9
+      }
+    },
+    {
+      "question": "ازدواج مرد با مادر زن چه حکمی دارد؟",
+      "expected_articles": [
+        "۱۰۴۷"
+      ],
+      "semantic": {
+        "first_relevant_rank": 7
+      },
+      "bm25": {
+        "first_relevant_rank": 1
+      },
+      "rrf": {
+        "first_relevant_rank": 1
+      }
+    },
+    {
+      "question": "آیا ازدواج با دختر همسر پس از برقراری رابطه زناشویی با مادر او ممنوع است؟",
+      "expected_articles": [
+        "۱۰۴۷"
+      ],
+      "semantic": {
+        "first_relevant_rank": 2
+      },
+      "bm25": {
+        "first_relevant_rank": 4
+      },
+      "rrf": {
+        "first_relevant_rank": 2
+      }
+    },
+    {
+      "question": "سن قانونی ازدواج دختر و پسر در قانون مدنی چقدر است؟",
+      "expected_articles": [
+        "۱۰۴۱"
+      ],
+      "semantic": {
+        "first_relevant_rank": 2
+      },
+      "bm25": {
+        "first_relevant_rank": 4
+      },
+      "rrf": {
+        "first_relevant_rank": 3
+      }
+    },
+    {
+      "question": "ازدواج دختر زیر ۱۳ سال چه شرایطی دارد؟",
+      "expected_articles": [
+        "۱۰۴۱"
+      ],
+      "semantic": {
+        "first_relevant_rank": 1
+      },
+      "bm25": {
+        "first_relevant_rank": 1
+      },
+      "rrf": {
+        "first_relevant_rank": 1
+      }
+    },
+    {
+      "question": "آیا برای ازدواج دختر زیر سن مقرر قانونی اجازه ولی کافی است؟",
+      "expected_articles": [
+        "۱۰۴۱"
+      ],
+      "semantic": {
+        "first_relevant_rank": 1
+      },
+      "bm25": {
+        "first_relevant_rank": 8
+      },
+      "rrf": {
+        "first_relevant_rank": 2
+      }
+    },
+    {
+      "question": "اگر نکاح به طور صحیح واقع شود چه آثاری ایجاد می‌کند؟",
+      "expected_articles": [
+        "۱۱۰۲"
+      ],
+      "semantic": {
+        "first_relevant_rank": 1
+      },
+      "bm25": {
+        "first_relevant_rank": 2
+      },
+      "rrf": {
+        "first_relevant_rank": 1
+      }
+    },
+    {
+      "question": "حقوق و تکالیف زوجین از چه زمانی برقرار می‌شود؟",
+      "expected_articles": [
+        "۱۱۰۲"
+      ],
+      "semantic": {
+        "first_relevant_rank": 1
+      },
+      "bm25": {
+        "first_relevant_rank": 1
+      },
+      "rrf": {
+        "first_relevant_rank": 1
+      }
+    },
+    {
+      "question": "چه شروطی را می‌توان ضمن عقد ازدواج قرار داد؟",
+      "expected_articles": [
+        "۱۱۱۹"
+      ],
+      "semantic": {
+        "first_relevant_rank": 1
+      },
+      "bm25": {
+        "first_relevant_rank": 29
+      },
+      "rrf": {
+        "first_relevant_rank": 5
+      }
+    },
+    {
+      "question": "آیا زوجین می‌توانند در عقد ازدواج شرط وکالت برای طلاق قرار دهند؟",
+      "expected_articles": [
+        "۱۱۱۹"
+      ],
+      "semantic": {
+        "first_relevant_rank": 1
+      },
+      "bm25": {
+        "first_relevant_rank": 10
+      },
+      "rrf": {
+        "first_relevant_rank": 3
+      }
+    },
+    {
+      "question": "چه عواملی باعث انحلال عقد نکاح می‌شوند؟",
+      "expected_articles": [
+        "۱۱۲۰"
+      ],
+      "semantic": {
+        "first_relevant_rank": 1
+      },
+      "bm25": {
+        "first_relevant_rank": 3
+      },
+      "rrf": {
+        "first_relevant_rank": 1
+      }
+    },
+    {
+      "question": "عقد نکاح از چه راه‌هایی منحل می‌شود؟",
+      "expected_articles": [
+        "۱۱۲۰"
+      ],
+      "semantic": {
+        "first_relevant_rank": 1
+      },
+      "bm25": {
+        "first_relevant_rank": 2
+      },
+      "rrf": {
+        "first_relevant_rank": 1
+      }
+    },
+    {
+      "question": "آیا برای فسخ نکاح رعایت تشریفات طلاق لازم است؟",
+      "expected_articles": [
+        "۱۱۳۲"
+      ],
+      "semantic": {
+        "first_relevant_rank": 1
+      },
+      "bm25": {
+        "first_relevant_rank": 1
+      },
+      "rrf": {
+        "first_relevant_rank": 1
+      }
+    },
+    {
+      "question": "در چه شرایطی زن پس از فسخ نکاح حق دریافت مهر ندارد؟",
+      "expected_articles": [
+        "۱۱۰۱"
+      ],
+      "semantic": {
+        "first_relevant_rank": 2
+      },
+      "bm25": {
+        "first_relevant_rank": 1
+      },
+      "rrf": {
+        "first_relevant_rank": 1
+      }
+    },
+    {
+      "question": "اگر نکاح باطل باشد و نزدیکی صورت نگرفته باشد، زن حق مهر دارد؟",
+      "expected_articles": [
+        "۱۰۹۸"
+      ],
+      "semantic": {
+        "first_relevant_rank": 1
+      },
+      "bm25": {
+        "first_relevant_rank": 1
+      },
+      "rrf": {
+        "first_relevant_rank": 1
+      }
+    },
+    {
+      "question": "اگر عقد نکاح باطل باشد و زن مهر را دریافت کرده باشد، آیا شوهر می‌تواند مهر را پس بگیرد؟",
+      "expected_articles": [
+        "۱۰۹۸"
+      ],
+      "semantic": {
+        "first_relevant_rank": 1
+      },
+      "bm25": {
+        "first_relevant_rank": 1
+      },
+      "rrf": {
+        "first_relevant_rank": 1
+      }
+    },
+    {
+      "question": "عده چیست و چه مفهومی دارد؟",
+      "expected_articles": [
+        "۱۱۵۰"
+      ],
+      "semantic": {
+        "first_relevant_rank": null
+      },
+      "bm25": {
+        "first_relevant_rank": null
+      },
+      "rrf": {
+        "first_relevant_rank": null
+      }
+    },
+    {
+      "question": "اثر قانون نسبت به گذشته چگونه است؟",
+      "expected_articles": [
+        "۴"
+      ],
+      "semantic": {
+        "first_relevant_rank": 1
+      },
+      "bm25": {
+        "first_relevant_rank": 1
+      },
+      "rrf": {
+        "first_relevant_rank": 1
+      }
+    },
+    {
+      "question": "قوانین ایران نسبت به اتباع خارجی مقیم ایران چه حکمی دارد؟",
+      "expected_articles": [
+        "۵",
+        "۷"
+      ],
+      "semantic": {
+        "first_relevant_rank": 1
+      },
+      "bm25": {
+        "first_relevant_rank": 2
+      },
+      "rrf": {
+        "first_relevant_rank": 4
+      }
+    }
+  ]
+}
