@@ -1,8 +1,14 @@
-from fastapi import FastAPI
-from pydantic import BaseModel
+from typing import List, Optional
+
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel, Field
 
 from generate import generate_answer
 
+
+# =========================
+# Application
+# =========================
 
 app = FastAPI(
     title="Vakilam AI API",
@@ -10,16 +16,31 @@ app = FastAPI(
 )
 
 
+# =========================
+# Schemas
+# =========================
+
 class ChatRequest(BaseModel):
     question: str
 
 
-@app.get("/health")
-def health():
-    return {
-        "status": "ok"
-    }
+class SourceResponse(BaseModel):
+    article: Optional[str] = None
+    version: Optional[str] = None
+    text: Optional[str] = None
 
+
+class ChatResponse(BaseModel):
+    status: str
+    answer: Optional[str] = None
+    sources: List[SourceResponse] = Field(
+        default_factory=list
+    )
+
+
+# =========================
+# Helpers
+# =========================
 
 def serialize_sources(sources):
     serialized = []
@@ -36,17 +57,42 @@ def serialize_sources(sources):
     return serialized
 
 
-@app.post("/chat")
+# =========================
+# Health Check
+# =========================
+
+@app.get("/health")
+def health():
+    return {
+        "status": "ok"
+    }
+
+
+# =========================
+# Chat
+# =========================
+
+@app.post(
+    "/chat",
+    response_model=ChatResponse
+)
 def chat(request: ChatRequest):
 
-    result = generate_answer(
-        request.question
-    )
-
-    return {
-        "status": result.get("status"),
-        "answer": result.get("answer"),
-        "sources": serialize_sources(
-            result.get("sources", [])
+    try:
+        result = generate_answer(
+            request.question
         )
-    }
+
+        return {
+            "status": result.get("status"),
+            "answer": result.get("answer"),
+            "sources": serialize_sources(
+                result.get("sources", [])
+            )
+        }
+
+    except Exception as exc:
+        raise HTTPException(
+            status_code=500,
+            detail="Internal AI service error."
+        ) from exc
