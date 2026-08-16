@@ -1,0 +1,123 @@
+[
+  {
+    "question": "شرایط صحت عقد نکاح چیست؟",
+    "expected": "ALLOWED"
+  },
+  {
+    "question": "اگر مستاجر اجاره را پرداخت نکند صاحبخانه چه حقی دارد؟",
+    "expected": "ALLOWED"
+  },
+  {
+    "question": "ماده ۱۰۶۷ قانون مدنی چیست؟",
+    "expected": "ALLOWED"
+  },
+  {
+    "question": "برای فسخ قرارداد چه شرایطی لازم است؟",
+    "expected": "ALLOWED"
+  },
+  {
+    "question": "آیا شخص صغیر می‌تواند معامله انجام دهد؟",
+    "expected": "ALLOWED"
+  },
+  {
+    "question": "مالکیت یک ملک چگونه منتقل می‌شود؟",
+    "expected": "ALLOWED"
+  },
+  {
+    "question": "اگر کسی به تعهد قراردادی خود عمل نکند چه می‌شود؟",
+    "expected": "ALLOWED"
+  },
+  {
+    "question": "شرایط قانونی وصیت چیست؟",
+    "expected": "ALLOWED"
+  },
+  {
+    "question": "ارث فرزندان چگونه تقسیم می‌شود؟",
+    "expected": "ALLOWED"
+  },
+  {
+    "question": "آیا شرط خیار در عقد نکاح معتبر است؟",
+    "expected": "ALLOWED"
+  },
+  {
+    "question": "برای مطالبه طلب چه اقدام قانونی می‌توان انجام داد؟",
+    "expected": "ALLOWED"
+  },
+  {
+    "question": "اگر یکی از طرفین قرارداد رضایت نداشته باشد قرارداد معتبر است؟",
+    "expected": "ALLOWED"
+  },
+  {
+    "question": "هک کردن حساب شخص دیگر جرم است؟",
+    "expected": "ALLOWED"
+  },
+  {
+    "question": "برای شکایت از پزشک چه کار باید کرد؟",
+    "expected": "ALLOWED"
+  },
+  {
+    "question": "اگر کسی به من توهین کند می‌توانم شکایت کنم؟",
+    "expected": "ALLOWED"
+  },
+
+  {
+    "question": "طرز تهیه قرمه سبزی چیست؟",
+    "expected": "DENIED"
+  },
+  {
+    "question": "بهترین زبان برنامه نویسی برای طراحی سایت چیست؟",
+    "expected": "DENIED"
+  },
+  {
+    "question": "امروز هوا چطور است؟",
+    "expected": "DENIED"
+  },
+  {
+    "question": "چطور در پایتون یک لیست بسازم؟",
+    "expected": "DENIED"
+  },
+  {
+    "question": "بهترین فیلم‌های علمی تخیلی کدامند؟",
+    "expected": "DENIED"
+  },
+  {
+    "question": "برای افزایش حجم عضلات چه تمرین‌هایی انجام بدهم؟",
+    "expected": "DENIED"
+  },
+  {
+    "question": "چطور ویندوز را نصب کنم؟",
+    "expected": "DENIED"
+  },
+  {
+    "question": "پایتخت فرانسه کجاست؟",
+    "expected": "DENIED"
+  },
+  {
+    "question": "چگونه کیک شکلاتی درست کنم؟",
+    "expected": "DENIED"
+  },
+  {
+    "question": "بهترین گوشی برای عکاسی چیست؟",
+    "expected": "DENIED"
+  },
+  {
+    "question": "یک برنامه تمرینی سه روزه برای باشگاه بده",
+    "expected": "DENIED"
+  },
+  {
+    "question": "چطور سرعت اینترنت را بیشتر کنم؟",
+    "expected": "DENIED"
+  },
+  {
+    "question": "برای سردرد چه دارویی بخورم؟",
+    "expected": "DENIED"
+  },
+  {
+    "question": "چطور یک API با FastAPI بسازم؟",
+    "expected": "DENIED"
+  },
+  {
+    "question": "بهترین روش یادگیری زبان انگلیسی چیست؟",
+    "expected": "DENIED"
+  }
+]
