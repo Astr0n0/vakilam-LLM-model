@@ -1,6 +1,7 @@
 import ollama
 
 from retrieve import retrieve
+from scope_guard import classify_scope
 
 
 # =========================
@@ -163,7 +164,8 @@ def generate_answer(query):
     if not query:
         return {
             "answer": None,
-            "sources": []
+            "sources": [],
+            "status": "invalid_input"
         }
 
     query = query.strip()
@@ -171,7 +173,24 @@ def generate_answer(query):
     if not query:
         return {
             "answer": None,
-            "sources": []
+            "sources": [],
+            "status": "invalid_input"
+        }
+
+    # -------------------------
+    # Scope Guard
+    # -------------------------
+
+    scope = classify_scope(query)
+
+    if scope != "ALLOWED":
+        return {
+            "answer": (
+                "این دستیار فقط به پرسش‌های مرتبط "
+                "با حوزه حقوقی پاسخ می‌دهد."
+            ),
+            "sources": [],
+            "status": "out_of_scope"
         }
 
     # -------------------------
@@ -188,7 +207,8 @@ def generate_answer(query):
                 "اطلاعات کافی در منابع بازیابی‌شده "
                 "برای پاسخ دقیق وجود ندارد."
             ),
-            "sources": []
+            "sources": [],
+            "status": "insufficient_context"
         }
 
     # -------------------------
@@ -257,7 +277,8 @@ def generate_answer(query):
 
     return {
         "answer": answer,
-        "sources": results[:CONTEXT_TOP_K]
+        "sources": results[:CONTEXT_TOP_K],
+        "status": "answered"
     }
 
 
