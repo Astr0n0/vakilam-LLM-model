@@ -2,6 +2,7 @@ import ollama
 
 from retrieve import retrieve
 from scope_guard import classify_scope
+from answerability import classify_answerability
 
 
 # =========================
@@ -198,14 +199,22 @@ def generate_answer(query):
     # -------------------------
 
     results = retrieve(
-        query
+    query
     )
 
-    if not results:
+    # -------------------------
+    # Answerability Gate
+    # -------------------------
+
+    answerability = classify_answerability(
+        results
+    )
+
+    if answerability != "ANSWERABLE":
         return {
             "answer": (
-                "اطلاعات کافی در منابع بازیابی‌شده "
-                "برای پاسخ دقیق وجود ندارد."
+                "اطلاعات کافی در منابع موجود "
+                "برای پاسخ دقیق به این پرسش وجود ندارد."
             ),
             "sources": [],
             "status": "insufficient_context"
@@ -256,18 +265,21 @@ def generate_answer(query):
     # -------------------------
 
     response = ollama.chat(
-        model=LLM_MODEL,
-        messages=[
-            {
-                "role": "system",
-                "content": SYSTEM_PROMPT
-            },
-            {
-                "role": "user",
-                "content": user_prompt
-            }
-        ]
-    )
+    model=LLM_MODEL,
+    messages=[
+        {
+            "role": "system",
+            "content": SYSTEM_PROMPT
+        },
+        {
+            "role": "user",
+            "content": user_prompt
+        }
+    ],
+    options={
+        "temperature": 0
+    }
+)
 
     answer = response[
         "message"

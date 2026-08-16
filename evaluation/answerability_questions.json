@@ -1,0 +1,83 @@
+[
+  {
+    "question": "شرایط صحت عقد نکاح چیست؟",
+    "expected": "ANSWERABLE"
+  },
+  {
+    "question": "ماده ۱۰۶۷ قانون مدنی چیست؟",
+    "expected": "ANSWERABLE"
+  },
+  {
+    "question": "رضایت زوجین چه تاثیری بر عقد نکاح دارد؟",
+    "expected": "ANSWERABLE"
+  },
+  {
+    "question": "شرط خیار فسخ در عقد نکاح معتبر است؟",
+    "expected": "ANSWERABLE"
+  },
+  {
+    "question": "ارث فرزندان چگونه تعیین می‌شود؟",
+    "expected": "ANSWERABLE"
+  },
+  {
+    "question": "وصیت چه شرایطی دارد؟",
+    "expected": "ANSWERABLE"
+  },
+  {
+    "question": "اهلیت برای معامله چه شرایطی دارد؟",
+    "expected": "ANSWERABLE"
+  },
+  {
+    "question": "اگر کسی به تعهد قراردادی خود عمل نکند چه می‌شود؟",
+    "expected": "ANSWERABLE"
+  },
+  {
+    "question": "مالکیت چگونه منتقل می‌شود؟",
+    "expected": "ANSWERABLE"
+  },
+  {
+    "question": "طلاق چه اثری بر نکاح دارد؟",
+    "expected": "ANSWERABLE"
+  },
+
+  {
+    "question": "هک کردن حساب شخص دیگر چه مجازاتی دارد؟",
+    "expected": "INSUFFICIENT"
+  },
+  {
+    "question": "برای شکایت از پزشک به کجا باید مراجعه کرد؟",
+    "expected": "INSUFFICIENT"
+  },
+  {
+    "question": "مجازات توهین در قانون چیست؟",
+    "expected": "INSUFFICIENT"
+  },
+  {
+    "question": "اگر کارفرما حقوق کارگر را پرداخت نکند چه باید کرد؟",
+    "expected": "INSUFFICIENT"
+  },
+  {
+    "question": "مجازات سرقت چیست؟",
+    "expected": "INSUFFICIENT"
+  },
+  {
+    "question": "برای اعتراض به جریمه رانندگی چه باید کرد؟",
+    "expected": "INSUFFICIENT"
+  },
+  {
+    "question": "شرایط دریافت بیمه بیکاری چیست؟",
+    "expected": "INSUFFICIENT"
+  },
+  {
+    "question": "برای ثبت شرکت چه مدارکی لازم است؟",
+    "expected": "INSUFFICIENT"
+  },
+  {
+    "question": "مالیات بر درآمد چگونه محاسبه می‌شود؟",
+    "expected": "INSUFFICIENT"
+  },
+  {
+    "question": "برای گرفتن مجوز کسب و کار چه مراحلی لازم است؟",
+    "expected": "INSUFFICIENT"
+  }
+]
