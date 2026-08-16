@@ -41,6 +41,27 @@ def normalize_digits(text):
     return text.translate(translation_table)
 
 
+def to_persian_digits(text):
+    """
+    Convert English and Arabic digits to Persian digits.
+    """
+
+    english_to_persian = str.maketrans(
+        "0123456789",
+        "۰۱۲۳۴۵۶۷۸۹"
+    )
+
+    arabic_to_persian = str.maketrans(
+        "٠١٢٣٤٥٦٧٨٩",
+        "۰۱۲۳۴۵۶۷۸۹"
+    )
+
+    text = text.translate(english_to_persian)
+    text = text.translate(arabic_to_persian)
+
+    return text
+
+
 # =========================
 # Extract article number
 # =========================
@@ -86,49 +107,8 @@ collection = client.get_collection(
 
 
 # =========================
-# Get user question
+# Legal version helpers
 # =========================
-
-query = input("Enter your legal question: ").strip()
-
-if not query:
-    print("Question cannot be empty.")
-    raise SystemExit
-
-
-print()
-print("=" * 70)
-print("QUERY")
-print("=" * 70)
-print(query)
-
-
-# =========================
-# Exact Article Lookup
-# =========================
-
-article_number = extract_article_number(query)
-
-def to_persian_digits(text):
-    """
-    Convert English and Arabic digits to Persian digits.
-    """
-
-    english_to_persian = str.maketrans(
-        "0123456789",
-        "۰۱۲۳۴۵۶۷۸۹"
-    )
-
-    arabic_to_persian = str.maketrans(
-        "٠١٢٣٤٥٦٧٨٩",
-        "۰۱۲۳۴۵۶۷۸۹"
-    )
-
-    text = text.translate(english_to_persian)
-    text = text.translate(arabic_to_persian)
-
-    return text
-
 
 def is_deleted_version(version):
     """
@@ -174,7 +154,7 @@ def version_date(version):
     month = int(match.group(2))
     day = int(match.group(3))
 
-    return (year, month, day)
+    return year, month, day
 
 
 def select_current_version(results):
@@ -191,16 +171,13 @@ def select_current_version(results):
     if not results:
         return []
 
-    # ---------------------------------
     # Remove deleted versions
-    # ---------------------------------
-
     valid_results = []
 
     for result in results:
-
         version = result["metadata"].get(
-            "version", ""
+            "version",
+            ""
         )
 
         if is_deleted_version(version):
@@ -211,10 +188,7 @@ def select_current_version(results):
     if not valid_results:
         return []
 
-    # ---------------------------------
     # Prefer current version
-    # ---------------------------------
-
     current_results = [
         result
         for result in valid_results
@@ -224,17 +198,14 @@ def select_current_version(results):
     if current_results:
         return current_results
 
-    # ---------------------------------
     # No current version:
     # select latest dated version
-    # ---------------------------------
-
     dated_results = []
 
     for result in valid_results:
-
         version = result["metadata"].get(
-            "version", ""
+            "version",
+            ""
         )
 
         date = version_date(version)
@@ -247,7 +218,6 @@ def select_current_version(results):
     if not dated_results:
         return []
 
-    # Latest date wins
     dated_results.sort(
         key=lambda item: item[0],
         reverse=True
@@ -255,6 +225,10 @@ def select_current_version(results):
 
     return [dated_results[0][1]]
 
+
+# =========================
+# Persian text normalization
+# =========================
 
 def normalize_text(text):
     """
@@ -273,13 +247,21 @@ def normalize_text(text):
     text = text.replace("ك", "ک")
 
     # Remove Arabic diacritics
-    text = re.sub(r"[\u064B-\u065F\u0670]", "", text)
+    text = re.sub(
+        r"[\u064B-\u065F\u0670]",
+        "",
+        text
+    )
 
-    # Normalize different forms of نیم‌فاصله
+    # Normalize half-space
     text = text.replace("\u200c", " ")
 
     # Normalize whitespace
-    text = re.sub(r"\s+", " ", text)
+    text = re.sub(
+        r"\s+",
+        " ",
+        text
+    )
 
     return text.strip()
 
@@ -297,19 +279,121 @@ def tokenize_persian(text):
     )
 
 
-def keyword_search(query, top_k=30):
+# =========================
+# Exact article search
+# =========================
+
+def exact_article_search(article_number):
     """
-    BM25 keyword search over all current legal articles.
+    Retrieve an exact legal article by article number.
     """
 
-    print()
-    print("=" * 70)
-    print("KEYWORD SEARCH")
-    print("=" * 70)
+    article_number_persian = to_persian_digits(
+        article_number
+    )
 
-    # ---------------------------------
-    # Get all documents
-    # ---------------------------------
+    exact = collection.get(
+        where={
+            "article": article_number_persian
+        },
+        include=[
+            "documents",
+            "metadatas"
+        ]
+    )
+
+    exact_results = []
+
+    if not exact["ids"]:
+        return []
+
+    for i in range(len(exact["ids"])):
+        exact_results.append({
+            "id": exact["ids"][i],
+            "document": exact["documents"][i],
+            "metadata": exact["metadatas"][i],
+            "distance": 0.0,
+            "retrieval_type": "exact"
+        })
+
+    return select_current_version(
+        exact_results
+    )
+
+
+# =========================
+# Semantic Search
+# =========================
+
+def semantic_search(query, top_k=SEMANTIC_TOP_K):
+    """
+    Semantic search using Qwen embeddings and ChromaDB.
+    """
+
+    response = ollama.embeddings(
+        model=EMBEDDING_MODEL,
+        prompt=query
+    )
+
+    query_embedding = response["embedding"]
+
+    semantic = collection.query(
+        query_embeddings=[query_embedding],
+        n_results=top_k
+    )
+
+    raw_results = []
+
+    for i in range(len(semantic["documents"][0])):
+        raw_results.append({
+            "id": semantic["ids"][0][i],
+            "document": semantic["documents"][0][i],
+            "metadata": semantic["metadatas"][0][i],
+            "distance": semantic["distances"][0][i],
+            "retrieval_type": "semantic"
+        })
+
+    # Group by article
+    results_by_article = {}
+
+    for result in raw_results:
+        article = result["metadata"].get(
+            "article"
+        )
+
+        if article is None:
+            continue
+
+        if article not in results_by_article:
+            results_by_article[article] = []
+
+        results_by_article[article].append(
+            result
+        )
+
+    # Resolve current legal version
+    final_results = []
+
+    for _, results in results_by_article.items():
+        selected = select_current_version(
+            results
+        )
+
+        final_results.extend(
+            selected
+        )
+
+    return final_results
+
+
+# =========================
+# Keyword Search
+# =========================
+
+def keyword_search(query, top_k=KEYWORD_TOP_K):
+    """
+    BM25 keyword search over legal articles.
+    """
 
     all_data = collection.get(
         include=[
@@ -325,27 +409,26 @@ def keyword_search(query, top_k=30):
     if not documents:
         return []
 
-    # ---------------------------------
-    # Build corpus
-    # ---------------------------------
-
+    # Build BM25 corpus
     tokenized_corpus = [
         tokenize_persian(document)
         for document in documents
     ]
 
-    bm25 = BM25Okapi(tokenized_corpus)
+    bm25 = BM25Okapi(
+        tokenized_corpus
+    )
 
-    query_tokens = tokenize_persian(query)
+    query_tokens = tokenize_persian(
+        query
+    )
 
     if not query_tokens:
         return []
 
-    # ---------------------------------
-    # Calculate BM25 scores
-    # ---------------------------------
-
-    scores = bm25.get_scores(query_tokens)
+    scores = bm25.get_scores(
+        query_tokens
+    )
 
     ranked_indices = sorted(
         range(len(scores)),
@@ -353,195 +436,24 @@ def keyword_search(query, top_k=30):
         reverse=True
     )
 
-    # ---------------------------------
-    # Build results
-    # ---------------------------------
-
     raw_results = []
 
     for index in ranked_indices[:top_k]:
-
         raw_results.append({
             "id": ids[index],
             "document": documents[index],
             "metadata": metadatas[index],
-            "keyword_score": float(scores[index]),
+            "keyword_score": float(
+                scores[index]
+            ),
             "distance": None,
             "retrieval_type": "keyword"
         })
 
-    # ---------------------------------
     # Group by article
-    # ---------------------------------
-
     results_by_article = {}
 
     for result in raw_results:
-
-        article = result["metadata"].get(
-            "article"
-        )
-
-        if article is None:
-            continue
-
-        if article not in results_by_article:
-            results_by_article[article] = []
-
-        results_by_article[article].append(result)
-
-    # ---------------------------------
-    # Resolve current legal version
-    # ---------------------------------
-
-    final_results = []
-
-    for article, results in results_by_article.items():
-
-        selected = select_current_version(
-            results
-        )
-
-        final_results.extend(selected)
-
-    # ---------------------------------
-    # Sort again by BM25 score
-    # ---------------------------------
-
-    final_results.sort(
-        key=lambda x: x["keyword_score"],
-        reverse=True
-    )
-
-    print(
-        f"Keyword matches found: "
-        f"{len(final_results)}"
-    )
-
-    return final_results[:top_k]
-
-
-exact_results = []
-
-
-if article_number is not None:
-
-    print()
-    print("=" * 70)
-    print("EXACT ARTICLE SEARCH")
-    print("=" * 70)
-
-    print(f"Detected article: {article_number}")
-
-    # Convert English digits to Persian digits
-    # because ChromaDB stores article numbers in Persian digits.
-    article_number_persian = to_persian_digits(
-        article_number
-    )
-
-    print(
-        f"Normalized article: {article_number_persian}"
-    )
-
-    exact = collection.get(
-        where={
-            "article": article_number_persian
-        },
-        include=[
-            "documents",
-            "metadatas"
-        ]
-    )
-
-    if exact["ids"]:
-
-        for i in range(len(exact["ids"])):
-
-            exact_results.append({
-                "id": exact["ids"][i],
-                "document": exact["documents"][i],
-                "metadata": exact["metadatas"][i],
-                "distance": 0.0,
-                "retrieval_type": "exact"
-            })
-
-        print(
-            f"Exact matches found: {len(exact_results)}"
-        )
-
-        # ---------------------------------
-        # Resolve legal version
-        # ---------------------------------
-
-        exact_results = select_current_version(
-            exact_results
-        )
-
-        print(
-            f"Exact matches after version filtering: "
-            f"{len(exact_results)}"
-        )
-
-    else:
-
-        print("No exact article match found.")
-
-
-# =========================
-# Semantic Search
-# =========================
-
-semantic_results = []
-
-
-if article_number is None:
-
-    print()
-    print("=" * 70)
-    print("SEMANTIC SEARCH")
-    print("=" * 70)
-
-    response = ollama.embeddings(
-        model=EMBEDDING_MODEL,
-        prompt=query
-    )
-
-    query_embedding = response["embedding"]
-
-    semantic = collection.query(
-        query_embeddings=[query_embedding],
-        n_results=SEMANTIC_TOP_K
-    )
-
-    # ---------------------------------
-    # Build raw semantic results
-    # ---------------------------------
-
-    raw_semantic_results = []
-
-    for i in range(len(semantic["documents"][0])):
-
-        raw_semantic_results.append({
-            "id": semantic["ids"][0][i],
-            "document": semantic["documents"][0][i],
-            "metadata": semantic["metadatas"][0][i],
-            "distance": semantic["distances"][0][i],
-            "retrieval_type": "semantic"
-        })
-
-    print(
-        f"Semantic matches found: "
-        f"{len(raw_semantic_results)}"
-    )
-
-    # ---------------------------------
-    # Group results by article
-    # ---------------------------------
-
-    results_by_article = {}
-
-    for result in raw_semantic_results:
-
         article = result["metadata"].get(
             "article"
         )
@@ -556,64 +468,24 @@ if article_number is None:
             result
         )
 
-    # ---------------------------------
-    # Resolve legal version
-    # ---------------------------------
+    # Resolve current legal version
+    final_results = []
 
-    for article, results in results_by_article.items():
-
+    for _, results in results_by_article.items():
         selected = select_current_version(
             results
         )
 
-        semantic_results.extend(
+        final_results.extend(
             selected
         )
 
-    print(
-        f"Semantic results after "
-        f"version filtering: "
-        f"{len(semantic_results)}"
+    final_results.sort(
+        key=lambda x: x["keyword_score"],
+        reverse=True
     )
 
-
-else:
-
-    print()
-    print("=" * 70)
-    print("SEMANTIC SEARCH SKIPPED")
-    print("=" * 70)
-
-    print(
-        "Exact article query detected. "
-        "Semantic search is not needed."
-    )
-
-
-# =========================
-# Keyword Search
-# =========================
-
-keyword_results = []
-
-if article_number is None:
-
-    keyword_results = keyword_search(
-        query,
-        top_k=KEYWORD_TOP_K
-    )
-
-else:
-
-    print()
-    print("=" * 70)
-    print("KEYWORD SEARCH SKIPPED")
-    print("=" * 70)
-
-    print(
-        "Exact article query detected. "
-        "Keyword search is not needed."
-    )
+    return final_results[:top_k]
 
 
 # =========================
@@ -641,14 +513,8 @@ def reciprocal_rank_fusion(
 
     fused = {}
 
-    # ---------------------------------
     # Exact results
-    # ---------------------------------
-
-    for rank, result in enumerate(
-        exact_results,
-        start=1
-    ):
+    for result in exact_results:
         result_id = result["id"]
 
         if result_id not in fused:
@@ -660,10 +526,7 @@ def reciprocal_rank_fusion(
                 "exact": True
             }
 
-    # ---------------------------------
     # Semantic ranking
-    # ---------------------------------
-
     for rank, result in enumerate(
         semantic_results,
         start=1
@@ -685,10 +548,7 @@ def reciprocal_rank_fusion(
 
         fused[result_id]["semantic_rank"] = rank
 
-    # ---------------------------------
     # Keyword ranking
-    # ---------------------------------
-
     for rank, result in enumerate(
         keyword_results,
         start=1
@@ -710,10 +570,6 @@ def reciprocal_rank_fusion(
 
         fused[result_id]["keyword_rank"] = rank
 
-    # ---------------------------------
-    # Sort
-    # ---------------------------------
-
     ranked = sorted(
         fused.values(),
         key=lambda x: (
@@ -723,146 +579,196 @@ def reciprocal_rank_fusion(
         reverse=True
     )
 
-    # ---------------------------------
-    # Build final results
-    # ---------------------------------
-
     final_results = []
 
     for item in ranked:
-
         result = item["result"].copy()
 
-        result["rrf_score"] = item["rrf_score"]
-        result["semantic_rank"] = item["semantic_rank"]
-        result["keyword_rank"] = item["keyword_rank"]
+        result["rrf_score"] = item[
+            "rrf_score"
+        ]
 
-        final_results.append(result)
+        result["semantic_rank"] = item[
+            "semantic_rank"
+        ]
+
+        result["keyword_rank"] = item[
+            "keyword_rank"
+        ]
+
+        final_results.append(
+            result
+        )
 
     return final_results[:FINAL_TOP_K]
 
 
 # =========================
-# Retrieval Diagnostics
+# Main Retrieval Function
 # =========================
 
-print()
-print("=" * 70)
-print("RETRIEVAL DIAGNOSTICS")
-print("=" * 70)
+def retrieve(query):
+    """
+    Main retrieval pipeline.
 
-print()
-print("SEMANTIC RESULTS")
-print("-" * 70)
+    Flow:
 
-for rank, result in enumerate(semantic_results, start=1):
+    Exact article query:
+        Exact lookup
 
-    metadata = result["metadata"]
+    Normal query:
+        Semantic search
+        +
+        BM25 keyword search
+        +
+        Reciprocal Rank Fusion
+    """
 
-    print(
-        f"{rank:02d}. "
-        f"Article={metadata.get('article')} | "
-        f"Version={metadata.get('version')} | "
-        f"Distance={result.get('distance')}"
+    if not query:
+        return []
+
+    query = query.strip()
+
+    if not query:
+        return []
+
+    article_number = extract_article_number(
+        query
     )
 
-print()
-print("KEYWORD RESULTS")
-print("-" * 70)
+    exact_results = []
+    semantic_results = []
+    keyword_results = []
 
-for rank, result in enumerate(keyword_results, start=1):
+    # Exact article lookup
+    if article_number is not None:
+        exact_results = exact_article_search(
+            article_number
+        )
 
-    metadata = result["metadata"]
+    # Normal hybrid search
+    else:
+        semantic_results = semantic_search(
+            query,
+            top_k=SEMANTIC_TOP_K
+        )
 
-    print(
-        f"{rank:02d}. "
-        f"Article={metadata.get('article')} | "
-        f"Version={metadata.get('version')} | "
-        f"BM25={result.get('keyword_score')}"
+        keyword_results = keyword_search(
+            query,
+            top_k=KEYWORD_TOP_K
+        )
+
+    merged_results = reciprocal_rank_fusion(
+        semantic_results=semantic_results,
+        keyword_results=keyword_results,
+        exact_results=exact_results
     )
 
-print()
-print("EXACT RESULTS")
-print("-" * 70)
-
-for rank, result in enumerate(exact_results, start=1):
-
-    metadata = result["metadata"]
-
-    print(
-        f"{rank:02d}. "
-        f"Article={metadata.get('article')} | "
-        f"Version={metadata.get('version')}"
-    )
+    return merged_results
 
 
 # =========================
-# Merge Results
+# Diagnostics
 # =========================
 
-merged_results = reciprocal_rank_fusion(
-    semantic_results=semantic_results,
-    keyword_results=keyword_results,
-    exact_results=exact_results
-)
-
-
-# =========================
-# Display Final Results
-# =========================
-
-print()
-print("=" * 70)
-print("FINAL RETRIEVED RESULTS")
-print("=" * 70)
-
-
-if not merged_results:
-
-    print("No relevant results found.")
-    raise SystemExit
-
-
-for i, result in enumerate(merged_results):
-
-    metadata = result["metadata"]
+def print_results(query, results):
+    """
+    Print retrieval results for manual testing.
+    """
 
     print()
-    print(f"Result #{i + 1}")
-    print("-" * 70)
-
-    print(
-        f"Article: {metadata['article']}"
-    )
-
-    print(
-        f"Version: {metadata['version']}"
-    )
-
-    print(
-        f"Chunk: {metadata['chunk_index']}"
-    )
-
-    print(
-        f"Retrieval type: {result['retrieval_type']}"
-    )
-
-    print(
-    f"Semantic rank: {result.get('semantic_rank')}"
-    )
-
-    print(
-        f"Keyword rank: {result.get('keyword_rank')}"
-    )
-
-    print(
-        f"RRF score: {result.get('rrf_score', 0):.6f}"
-    )
-
-    print(
-        f"Distance: {result['distance']}"
-    )
+    print("=" * 70)
+    print("QUERY")
+    print("=" * 70)
+    print(query)
 
     print()
-    print("Text:")
-    print(result["document"])
+    print("=" * 70)
+    print("FINAL RETRIEVED RESULTS")
+    print("=" * 70)
+
+    if not results:
+        print("No relevant results found.")
+        return
+
+    for i, result in enumerate(
+        results,
+        start=1
+    ):
+        metadata = result["metadata"]
+
+        print()
+        print(f"Result #{i}")
+        print("-" * 70)
+
+        print(
+            f"Article: "
+            f"{metadata.get('article')}"
+        )
+
+        print(
+            f"Version: "
+            f"{metadata.get('version')}"
+        )
+
+        print(
+            f"Chunk: "
+            f"{metadata.get('chunk_index')}"
+        )
+
+        print(
+            f"Retrieval type: "
+            f"{result.get('retrieval_type')}"
+        )
+
+        print(
+            f"Semantic rank: "
+            f"{result.get('semantic_rank')}"
+        )
+
+        print(
+            f"Keyword rank: "
+            f"{result.get('keyword_rank')}"
+        )
+
+        print(
+            f"RRF score: "
+            f"{result.get('rrf_score', 0):.6f}"
+        )
+
+        print(
+            f"Distance: "
+            f"{result.get('distance')}"
+        )
+
+        print()
+        print("Text:")
+        print(
+            result["document"]
+        )
+
+
+# =========================
+# Command-line Test
+# =========================
+
+if __name__ == "__main__":
+
+    query = input(
+        "Enter your legal question: "
+    ).strip()
+
+    if not query:
+        print(
+            "Question cannot be empty."
+        )
+        raise SystemExit
+
+    results = retrieve(
+        query
+    )
+
+    print_results(
+        query,
+        results
+    )
