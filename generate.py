@@ -1,185 +1,306 @@
-import chromadb
 import ollama
+
+from retrieve import retrieve
 
 
 # =========================
 # Configuration
 # =========================
 
-CHROMA_PATH = "law-rag/chroma_db"
-COLLECTION_NAME = "civil_law_v2"
-
-EMBEDDING_MODEL = "qwen3-embedding:0.6b"
 LLM_MODEL = "qwen3:8b"
 
-TOP_K = 10
-
-
-# =========================
-# Connect to ChromaDB
-# =========================
-
-client = chromadb.PersistentClient(
-    path=CHROMA_PATH
-)
-
-collection = client.get_collection(
-    name=COLLECTION_NAME
-)
-
-
-# =========================
-# Get user question
-# =========================
-
-query = input("Enter your legal question: ").strip()
-
-if not query:
-    print("Question cannot be empty.")
-    raise SystemExit
-
-
-# =========================
-# Create query embedding
-# =========================
-
-print("\nSearching legal database...")
-
-response = ollama.embeddings(
-    model=EMBEDDING_MODEL,
-    prompt=query
-)
-
-query_embedding = response["embedding"]
-
-
-# =========================
-# Retrieve relevant chunks
-# =========================
-
-results = collection.query(
-    query_embeddings=[query_embedding],
-    n_results=TOP_K
-)
-
-
-# =========================
-# Build context
-# =========================
-
-context_parts = []
-
-for i in range(len(results["documents"][0])):
-
-    document = results["documents"][0][i]
-    metadata = results["metadatas"][0][i]
-    distance = results["distances"][0][i]
-
-    context_parts.append(
-        f"""
-[Source {i + 1}]
-Article: {metadata["article"]}
-Version: {metadata["version"]}
-Chunk: {metadata["chunk_index"]}
-Distance: {distance}
-
-Text:
-{document}
-"""
-    )
-
-
-context = "\n".join(context_parts)
+CONTEXT_TOP_K = 10
 
 
 # =========================
 # System prompt
 # =========================
 
-system_prompt = """
+SYSTEM_PROMPT = """
 شما یک دستیار حقوقی فارسی هستید.
 
-وظیفه شما پاسخ دادن به پرسش‌های حقوقی بر اساس
+وظیفه شما پاسخ دادن به پرسش‌های حقوقی فقط بر اساس
 منابع قانونی ارائه‌شده در CONTEXT است.
 
 قواعد مهم:
 
 1. فقط بر اساس اطلاعات موجود در CONTEXT پاسخ دهید.
-2. اگر اطلاعات کافی برای پاسخ وجود ندارد، بدون هیچ توضیح اضافه‌ای صریحاً بگویید:
-   «اطلاعات کافی در منابع بازیابی‌شده برای پاسخ دقیق وجود ندارد.»
+
+2. اگر اطلاعات کافی برای پاسخ وجود ندارد، بدون هیچ توضیح اضافه‌ای بگویید:
+«اطلاعات کافی در منابع بازیابی‌شده برای پاسخ دقیق وجود ندارد.»
+
 3. هیچ ماده قانونی، شماره ماده، حکم یا واقعیت حقوقی را از خودتان ایجاد نکنید.
-4. در پاسخ، شماره ماده قانونی مرتبط را در صورت وجود ذکر کنید.
+
+4. در پاسخ، شماره مواد قانونی مرتبط را در صورت وجود ذکر کنید.
+
 5. پاسخ را به زبان فارسی و واضح ارائه کنید.
+
 6. ابتدا پاسخ مستقیم به سؤال را بدهید.
+
 7. سپس مستندات قانونی مرتبط را ذکر کنید.
-8. بین متن قانون و استنباط خودتان تفاوت قائل شوید.
+
+8. بین متن صریح قانون و استنباط یا توضیح خودتان تفاوت قائل شوید.
+
+9. اگر CONTEXT با سؤال ارتباط کافی ندارد، از دانش عمومی یا دانش داخلی مدل
+برای تکمیل پاسخ استفاده نکنید.
 """
 
 
 # =========================
-# User prompt
+# Build context
 # =========================
 
-user_prompt = f"""
+def build_context(results, top_k=CONTEXT_TOP_K):
+    """
+    Convert retrieval results into a context
+    that can be given to the language model.
+    """
+
+    context_parts = []
+
+    for i, result in enumerate(
+        results[:top_k],
+        start=1
+    ):
+        metadata = result["metadata"]
+
+        article = metadata.get(
+            "article",
+            "unknown"
+        )
+
+        version = metadata.get(
+            "version",
+            "unknown"
+        )
+
+        chunk_index = metadata.get(
+            "chunk_index",
+            "unknown"
+        )
+
+        retrieval_type = result.get(
+            "retrieval_type",
+            "unknown"
+        )
+
+        semantic_rank = result.get(
+            "semantic_rank"
+        )
+
+        keyword_rank = result.get(
+            "keyword_rank"
+        )
+
+        rrf_score = result.get(
+            "rrf_score",
+            0
+        )
+
+        document = result.get(
+            "document",
+            ""
+        )
+
+        context_parts.append(
+            f"""
+[Source {i}]
+
+Article: {article}
+Version: {version}
+Chunk: {chunk_index}
+Retrieval type: {retrieval_type}
+Semantic rank: {semantic_rank}
+Keyword rank: {keyword_rank}
+RRF score: {rrf_score}
+
+Text:
+{document}
+"""
+        )
+
+    return "\n".join(
+        context_parts
+    )
+
+
+# =========================
+# Generate legal answer
+# =========================
+
+def generate_answer(query):
+    """
+    Retrieve legal sources and generate
+    an answer using Qwen.
+    """
+
+    if not query:
+        return {
+            "answer": None,
+            "sources": []
+        }
+
+    query = query.strip()
+
+    if not query:
+        return {
+            "answer": None,
+            "sources": []
+        }
+
+    # -------------------------
+    # Retrieval
+    # -------------------------
+
+    results = retrieve(
+        query
+    )
+
+    if not results:
+        return {
+            "answer": (
+                "اطلاعات کافی در منابع بازیابی‌شده "
+                "برای پاسخ دقیق وجود ندارد."
+            ),
+            "sources": []
+        }
+
+    # -------------------------
+    # Context
+    # -------------------------
+
+    context = build_context(
+        results
+    )
+
+    # -------------------------
+    # User prompt
+    # -------------------------
+
+    user_prompt = f"""
 پرسش کاربر:
 
 {query}
 
 
 CONTEXT:
+
 {context}
 
 
-بر اساس منابع بالا به پرسش پاسخ بده.
+فقط بر اساس منابع بالا به پرسش پاسخ بده.
 """
 
+    # -------------------------
+    # LLM generation
+    # -------------------------
 
-# =========================
-# Generate answer
-# =========================
+    response = ollama.chat(
+        model=LLM_MODEL,
+        messages=[
+            {
+                "role": "system",
+                "content": SYSTEM_PROMPT
+            },
+            {
+                "role": "user",
+                "content": user_prompt
+            }
+        ]
+    )
 
-print("\nGenerating legal answer...\n")
-
-response = ollama.chat(
-    model=LLM_MODEL,
-    messages=[
-        {
-            "role": "system",
-            "content": system_prompt
-        },
-        {
-            "role": "user",
-            "content": user_prompt
-        }
+    answer = response[
+        "message"
+    ][
+        "content"
     ]
-)
 
-
-answer = response["message"]["content"]
+    return {
+        "answer": answer,
+        "sources": results[:CONTEXT_TOP_K]
+    }
 
 
 # =========================
-# Display answer
+# Display sources
 # =========================
 
-print("=" * 70)
-print("LEGAL ANSWER")
-print("=" * 70)
+def print_sources(sources):
+    """
+    Display retrieved legal sources
+    for command-line testing.
+    """
 
-print(answer)
+    print()
+    print("=" * 70)
+    print("RETRIEVED SOURCES")
+    print("=" * 70)
 
-print()
-print("=" * 70)
-print("RETRIEVED SOURCES")
-print("=" * 70)
+    if not sources:
+        print(
+            "No sources retrieved."
+        )
+        return
 
-for i in range(len(results["documents"][0])):
+    for i, result in enumerate(
+        sources,
+        start=1
+    ):
+        metadata = result[
+            "metadata"
+        ]
 
-    metadata = results["metadatas"][0][i]
-    distance = results["distances"][0][i]
+        print(
+            f"{i}. "
+            f"Article "
+            f"{metadata.get('article')} "
+            f"| Version: "
+            f"{metadata.get('version')} "
+            f"| Type: "
+            f"{result.get('retrieval_type')} "
+            f"| Semantic rank: "
+            f"{result.get('semantic_rank')} "
+            f"| Keyword rank: "
+            f"{result.get('keyword_rank')} "
+            f"| RRF: "
+            f"{result.get('rrf_score', 0):.6f}"
+        )
+
+
+# =========================
+# Command-line Test
+# =========================
+
+if __name__ == "__main__":
+
+    query = input(
+        "Enter your legal question: "
+    ).strip()
+
+    if not query:
+        print(
+            "Question cannot be empty."
+        )
+        raise SystemExit
+
+    print()
+    print(
+        "Searching legal database..."
+    )
+
+    result = generate_answer(
+        query
+    )
+
+    print()
+    print("=" * 70)
+    print("LEGAL ANSWER")
+    print("=" * 70)
 
     print(
-        f"{i + 1}. Article {metadata['article']} "
-        f"| Version: {metadata['version']} "
-        f"| Distance: {distance:.4f}"
+        result["answer"]
+    )
+
+    print_sources(
+        result["sources"]
     )
