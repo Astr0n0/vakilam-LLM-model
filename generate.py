@@ -1,8 +1,9 @@
 import ollama
 
+from answerability import classify_answerability
+from citation_validator import validate_citations
 from retrieve import retrieve
 from scope_guard import classify_scope
-from answerability import classify_answerability
 
 
 # =========================
@@ -11,11 +12,13 @@ from answerability import classify_answerability
 
 LLM_MODEL = "qwen3:8b"
 
-CONTEXT_TOP_K = 10
+CONTEXT_TOP_K = 6
+
+MAX_GENERATION_ATTEMPTS = 2
 
 
 # =========================
-# System prompt
+# System Prompt
 # =========================
 
 SYSTEM_PROMPT = """
@@ -75,13 +78,16 @@ SYSTEM_PROMPT = """
 
 
 # =========================
-# Build context
+# Build Context
 # =========================
 
-def build_context(results, top_k=CONTEXT_TOP_K):
+def build_context(
+    results,
+    top_k=CONTEXT_TOP_K
+):
     """
-    Convert retrieval results into a context
-    that can be given to the language model.
+    Convert retrieval results into context
+    for the language model.
     """
 
     context_parts = []
@@ -153,14 +159,127 @@ Text:
 
 
 # =========================
-# Generate legal answer
+# Build User Prompt
+# =========================
+
+def build_user_prompt(
+    query,
+    context,
+    retry=False
+):
+    """
+    Build the prompt used for answer generation.
+    """
+
+    retry_instruction = ""
+
+    if retry:
+        retry_instruction = """
+پاسخ قبلی دارای ارجاع نامعتبر به ماده قانونی بوده است.
+
+این بار بسیار سخت‌گیرانه عمل کن:
+
+- فقط شماره موادی را ذکر کن که در CONTEXT وجود دارند.
+- شماره هیچ ماده‌ای را حدس نزن.
+- هیچ ماده جدیدی ایجاد نکن.
+- فقط ادعاهایی را بیان کن که مستقیماً از متن منابع پشتیبانی می‌شوند.
+- اگر ارتباط یک ماده با سؤال روشن نیست، آن ماده را استفاده نکن.
+"""
+
+    return f"""
+پرسش کاربر:
+
+{query}
+
+
+CONTEXT:
+
+{context}
+
+
+فقط بر اساس منابع بالا به پرسش پاسخ بده.
+
+شماره هیچ ماده‌ای را که در CONTEXT وجود ندارد ذکر نکن.
+شماره مواد را عیناً از فیلد Article منابع بردار.
+هیچ حکم حقوقی خارج از متن منابع اضافه نکن.
+
+برای هر ادعا فقط از همان منبعی استفاده کن که آن ادعا صراحتاً
+در متن آن آمده است.
+
+مثال:
+اگر یک منبع درباره «توالی ایجاب و قبول» صحبت می‌کند،
+نباید «رضایت طرفین» را به همان ماده نسبت بدهی.
+
+از تعمیم مواد عمومی به موضوع سؤال خودداری کن مگر اینکه
+ارتباط آن در CONTEXT صراحتاً ذکر شده باشد.
+
+{retry_instruction}
+"""
+
+
+# =========================
+# Generate One Answer
+# =========================
+
+def generate_once(
+    query,
+    context,
+    retry=False
+):
+    """
+    Generate one candidate answer.
+    """
+
+    user_prompt = build_user_prompt(
+        query=query,
+        context=context,
+        retry=retry
+    )
+
+    response = ollama.chat(
+        model=LLM_MODEL,
+        messages=[
+            {
+                "role": "system",
+                "content": SYSTEM_PROMPT
+            },
+            {
+                "role": "user",
+                "content": user_prompt
+            }
+        ],
+        options={
+            "temperature": 0
+        }
+    )
+
+    return response[
+        "message"
+    ][
+        "content"
+    ]
+
+
+# =========================
+# Generate Legal Answer
 # =========================
 
 def generate_answer(query):
     """
-    Retrieve legal sources and generate
-    an answer using Qwen.
+    Full Vakilam AI pipeline.
+
+    Flow:
+        input validation
+        scope classification
+        retrieval
+        answerability
+        generation
+        citation validation
     """
+
+    # -------------------------
+    # Input Validation
+    # -------------------------
 
     if not query:
         return {
@@ -182,7 +301,9 @@ def generate_answer(query):
     # Scope Guard
     # -------------------------
 
-    scope = classify_scope(query)
+    scope = classify_scope(
+        query
+    )
 
     if scope != "ALLOWED":
         return {
@@ -199,15 +320,17 @@ def generate_answer(query):
     # -------------------------
 
     results = retrieve(
-    query
+        query
     )
 
     # -------------------------
     # Answerability Gate
     # -------------------------
 
-    answerability = classify_answerability(
-        results
+    answerability = (
+        classify_answerability(
+            results
+        )
     )
 
     if answerability != "ANSWERABLE":
@@ -224,78 +347,58 @@ def generate_answer(query):
     # Context
     # -------------------------
 
+    sources = results[
+        :CONTEXT_TOP_K
+    ]
+
     context = build_context(
-        results
+        sources
     )
 
     # -------------------------
-    # User prompt
+    # Generation + Citation Validation
     # -------------------------
 
-    user_prompt = f"""
-    پرسش کاربر:
+    for attempt in range(
+        MAX_GENERATION_ATTEMPTS
+    ):
+        retry = attempt > 0
 
-    {query}
+        answer = generate_once(
+            query=query,
+            context=context,
+            retry=retry
+        )
 
+        citation_result = validate_citations(
+            answer,
+            sources
+        )
 
-    CONTEXT:
-
-    {context}
-
-
-    فقط بر اساس منابع بالا به پرسش پاسخ بده.
-
-    شماره هیچ ماده‌ای را که در CONTEXT وجود ندارد ذکر نکن.
-    شماره مواد را عیناً از فیلد Article منابع بردار.
-    هیچ حکم حقوقی خارج از متن منابع اضافه نکن.
-
-    برای هر ادعا فقط از همان منبعی استفاده کن که آن ادعا صراحتاً
-    در متن آن آمده است.
-
-    مثال:
-    اگر یک منبع درباره «توالی ایجاب و قبول» صحبت می‌کند،
-    نباید «رضایت طرفین» را به همان ماده نسبت بدهی.
-
-    از تعمیم مواد عمومی به موضوع سؤال خودداری کن مگر اینکه
-    ارتباط آن در CONTEXT صراحتاً ذکر شده باشد.
-    """
+        if citation_result["valid"]:
+            return {
+                "answer": answer,
+                "sources": sources,
+                "status": "answered"
+            }
 
     # -------------------------
-    # LLM generation
+    # Citation Validation Failed
     # -------------------------
-
-    response = ollama.chat(
-    model=LLM_MODEL,
-    messages=[
-        {
-            "role": "system",
-            "content": SYSTEM_PROMPT
-        },
-        {
-            "role": "user",
-            "content": user_prompt
-        }
-    ],
-    options={
-        "temperature": 0
-    }
-)
-
-    answer = response[
-        "message"
-    ][
-        "content"
-    ]
 
     return {
-        "answer": answer,
-        "sources": results[:CONTEXT_TOP_K],
-        "status": "answered"
+        "answer": (
+            "اطلاعات کافی در منابع موجود "
+            "برای ارائه پاسخ دقیق و قابل استناد "
+            "وجود ندارد."
+        ),
+        "sources": [],
+        "status": "insufficient_context"
     }
 
 
 # =========================
-# Display sources
+# Display Sources
 # =========================
 
 def print_sources(sources):

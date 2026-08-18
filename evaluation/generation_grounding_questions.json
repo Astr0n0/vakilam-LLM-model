@@ -1,0 +1,32 @@
+[
+  {
+    "question": "شرایط صحت عقد نکاح چیست؟",
+    "expected_status": "answered",
+    "allowed_articles": ["۱۰۶۵", "۱۰۶۷", "۱۰۷۰"],
+    "forbidden_articles": ["۱۹۰"]
+  },
+  {
+    "question": "ماده ۱۰۶۷ قانون مدنی چیست؟",
+    "expected_status": "answered",
+    "allowed_articles": ["۱۰۶۷"],
+    "forbidden_articles": []
+  },
+  {
+    "question": "شرط خیار فسخ در عقد نکاح معتبر است؟",
+    "expected_status": "answered",
+    "allowed_articles": ["۱۰۶۹"],
+    "forbidden_articles": []
+  },
+  {
+    "question": "برای شکایت از پزشک به کجا باید مراجعه کرد؟",
+    "expected_status": "insufficient_context",
+    "allowed_articles": [],
+    "forbidden_articles": []
+  },
+  {
+    "question": "طرز تهیه قرمه سبزی چیست؟",
+    "expected_status": "out_of_scope",
+    "allowed_articles": [],
+    "forbidden_articles": []
+  }
+]
