@@ -1,7 +1,8 @@
+import uuid
 from typing import List, Optional
-from fastapi.middleware.cors import CORSMiddleware
 
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
 from generate import generate_answer
@@ -16,6 +17,11 @@ app = FastAPI(
     version="0.1.0"
 )
 
+
+# =========================
+# CORS
+# =========================
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
@@ -28,6 +34,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 # =========================
 # Schemas
@@ -51,6 +58,34 @@ class ChatResponse(BaseModel):
     )
 
 
+class OpenAIMessage(BaseModel):
+    role: str
+    content: str
+
+
+class OpenAIChatRequest(BaseModel):
+    model: str
+    messages: List[OpenAIMessage]
+
+
+class OpenAIChoiceMessage(BaseModel):
+    role: str
+    content: str
+
+
+class OpenAIChoice(BaseModel):
+    index: int
+    message: OpenAIChoiceMessage
+    finish_reason: str
+
+
+class OpenAIChatResponse(BaseModel):
+    id: str
+    object: str
+    model: str
+    choices: List[OpenAIChoice]
+
+
 # =========================
 # Helpers
 # =========================
@@ -59,12 +94,21 @@ def serialize_sources(sources):
     serialized = []
 
     for source in sources:
-        metadata = source.get("metadata", {})
+        metadata = source.get(
+            "metadata",
+            {}
+        )
 
         serialized.append({
-            "article": metadata.get("article"),
-            "version": metadata.get("version"),
-            "text": source.get("document")
+            "article": metadata.get(
+                "article"
+            ),
+            "version": metadata.get(
+                "version"
+            ),
+            "text": source.get(
+                "document"
+            )
         })
 
     return serialized
@@ -82,27 +126,100 @@ def health():
 
 
 # =========================
-# Chat
+# Native Vakilam Chat Endpoint
 # =========================
 
 @app.post(
     "/chat",
     response_model=ChatResponse
 )
-def chat(request: ChatRequest):
-
+def chat(
+    request: ChatRequest
+):
     try:
         result = generate_answer(
             request.question
         )
 
         return {
-            "status": result.get("status"),
-            "answer": result.get("answer"),
+            "status": result.get(
+                "status"
+            ),
+            "answer": result.get(
+                "answer"
+            ),
             "sources": serialize_sources(
-                result.get("sources", [])
+                result.get(
+                    "sources",
+                    []
+                )
             )
         }
+
+    except Exception as exc:
+        raise HTTPException(
+            status_code=500,
+            detail="Internal AI service error."
+        ) from exc
+
+
+# =========================
+# OpenAI-Compatible Endpoint
+# =========================
+
+@app.post(
+    "/v1/chat/completions",
+    response_model=OpenAIChatResponse
+)
+def openai_chat_completion(
+    request: OpenAIChatRequest
+):
+    try:
+        user_messages = [
+            message.content
+            for message in request.messages
+            if message.role == "user"
+        ]
+
+        if not user_messages:
+            raise HTTPException(
+                status_code=400,
+                detail="No user message provided."
+            )
+
+        question = user_messages[-1]
+
+        result = generate_answer(
+            question
+        )
+
+        answer = (
+            result.get(
+                "answer"
+            )
+            or ""
+        )
+
+        return {
+            "id": (
+                f"chatcmpl-"
+                f"{uuid.uuid4().hex}"
+            ),
+            "object": "chat.completion",
+            "model": request.model,
+            "choices": [
+                {
+                    "index": 0,
+                    "message": {
+                        "role": "assistant","content": answer
+                    },
+                    "finish_reason": "stop"
+                }
+            ]
+        }
+
+    except HTTPException:
+        raise
 
     except Exception as exc:
         raise HTTPException(
