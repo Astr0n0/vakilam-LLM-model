@@ -5,7 +5,7 @@ import ollama
 # Configuration
 # =========================
 
-CLASSIFIER_MODEL = "qwen3:8b"
+from config import LLM_MODEL
 
 
 # =========================
@@ -91,7 +91,7 @@ def classify_scope(query):
         return "DENIED"
 
     response = ollama.chat(
-        model=CLASSIFIER_MODEL,
+        model=LLM_MODEL,
         messages=[
             {
                 "role": "system",

@@ -5,16 +5,11 @@ from citation_validator import validate_citations
 from retrieve import retrieve
 from scope_guard import classify_scope
 
-
-# =========================
-# Configuration
-# =========================
-
-LLM_MODEL = "qwen3:8b"
-
-CONTEXT_TOP_K = 6
-
-MAX_GENERATION_ATTEMPTS = 2
+from config import (
+    CONTEXT_TOP_K,
+    LLM_MODEL,
+    MAX_GENERATION_ATTEMPTS,
+)
 
 
 # =========================

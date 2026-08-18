@@ -1,4 +1,4 @@
-MAX_SEMANTIC_DISTANCE = 1.08
+from config import MAX_SEMANTIC_DISTANCE
 
 
 def get_best_semantic_distance(results):
