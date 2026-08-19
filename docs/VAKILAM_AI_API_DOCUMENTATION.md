@@ -449,36 +449,7 @@ This AI assistant:
 
 ---
 
-# 11. Version Information
-
-
-Service:
-
-```
-Vakilam AI API
-```
-
-API Version:
-
-```
-0.1.0
-```
-
-Model:
-
-```
-Qwen3:8B
-```
-
-Framework:
-
-```
-FastAPI
-```
-
----
-
-# 12. Integration Contract
+# 11. Integration Contract
 
 
 ## Laravel Backend Responsibilities
@@ -515,3 +486,32 @@ Each user's conversation history must be managed by Laravel backend.
 Laravel should send only the required conversation context when multi-turn conversations are needed.
 
 The AI service does not mix user conversations because it does not store user sessions internally.
+
+---
+
+# 12. Version Information
+
+
+Service:
+
+```
+Vakilam AI API
+```
+
+API Version:
+
+```
+0.1.0
+```
+
+Model:
+
+```
+Qwen3:8B
+```
+
+Framework:
+
+```
+FastAPI
+```
