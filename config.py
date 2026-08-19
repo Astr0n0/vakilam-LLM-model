@@ -105,3 +105,13 @@ MAX_GENERATION_ATTEMPTS = int(
         "2"
     )
 )
+
+
+# =========================
+# API Security
+# =========================
+
+API_KEY = os.getenv(
+    "API_KEY",
+    ""
+)

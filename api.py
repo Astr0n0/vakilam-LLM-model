@@ -1,10 +1,11 @@
 import uuid
 from typing import List, Optional
 
-from fastapi import FastAPI, HTTPException
+from fastapi import Depends, FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
+from security import verify_api_key
 from generate import generate_answer
 
 
@@ -134,7 +135,8 @@ def health():
     response_model=ChatResponse
 )
 def chat(
-    request: ChatRequest
+    request: ChatRequest,
+    _: bool = Depends(verify_api_key)
 ):
     try:
         result = generate_answer(
@@ -172,7 +174,8 @@ def chat(
     response_model=OpenAIChatResponse
 )
 def openai_chat_completion(
-    request: OpenAIChatRequest
+    request: OpenAIChatRequest,
+    _: bool = Depends(verify_api_key)
 ):
     try:
         user_messages = [
@@ -211,7 +214,8 @@ def openai_chat_completion(
                 {
                     "index": 0,
                     "message": {
-                        "role": "assistant","content": answer
+                        "role": "assistant",
+                        "content": answer
                     },
                     "finish_reason": "stop"
                 }
